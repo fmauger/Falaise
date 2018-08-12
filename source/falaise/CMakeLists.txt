@@ -145,7 +145,13 @@ if(FALAISE_ENABLE_TESTING)
     testing/test_falaise.cxx
     testing/test_io_data.cxx
     testing/test_falaise_tags.cxx
-   )
+    )
+  if (Bayeux_VERSION VERSION_GREATER_EQUAL "3.4")
+    message(STATUS "Add special validation for Bayeux >=3.4")
+    list(APPEND FalaiseLibrary_TESTS
+      testing/falaise-issue115-validation/flread_sd.cxx
+      )
+  endif()
   list(APPEND FalaiseLibrary_TESTS_CATCH
     testing/test_property_reader.cxx
     testing/test_falaise_version.cxx
