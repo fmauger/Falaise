@@ -1006,20 +1006,29 @@ void gg_step_hit_processor::_process(
 
       if (_store_track_infos_) {
         if (the_step_hit.has_track_id()) {
-          current_gg_hit->grab_auxiliaries().store(mctools::track_utils::TRACK_ID_KEY,
-                                                   the_step_hit.get_track_id());
+          const int track_id = the_step_hit.get_track_id();
+          current_gg_hit->set_track_id(track_id);
+          // current_gg_hit->grab_auxiliaries().store(mctools::track_utils::TRACK_ID_KEY,
+          //                                          the_step_hit.get_track_id());
         }
         if (the_step_hit.has_parent_track_id()) {
-          current_gg_hit->grab_auxiliaries().store(mctools::track_utils::PARENT_TRACK_ID_KEY,
-                                                   the_step_hit.get_parent_track_id());
+          const int parent_track_id = the_step_hit.get_parent_track_id();
+          current_gg_hit->set_parent_track_id(parent_track_id);
+          // current_gg_hit->grab_auxiliaries().store(mctools::track_utils::PARENT_TRACK_ID_KEY,
+          //                                           the_step_hit.get_parent_track_id());
         }
       }
       // store primary particle information
-      const bool is_primary_particle =
-          the_step_hit.get_auxiliaries().has_flag(mctools::track_utils::PRIMARY_PARTICLE_FLAG);
-      if (is_primary_particle) {
-        current_gg_hit->grab_auxiliaries().store_flag(mctools::track_utils::PRIMARY_PARTICLE_FLAG);
+      // const bool is_primary_particle =
+      //     the_step_hit.get_auxiliaries().has_flag(mctools::track_utils::PRIMARY_PARTICLE_FLAG);
+      // if (is_primary_particle) {
+      //   current_gg_hit->grab_auxiliaries().store_flag(mctools::track_utils::PRIMARY_PARTICLE_FLAG);
+      // }
+      const bool is_primary_particle = the_step_hit.has_primary_particle() && the_step_hit.is_primary_particle();
+      if (the_step_hit.has_primary_particle() && the_step_hit.is_primary_particle()) {
+        current_gg_hit->set_primary_particle(true);
       }
+      
       // increment the gg id:
       gg_hit_count++;
     } else {
@@ -1071,12 +1080,14 @@ void gg_step_hit_processor::_process(
         current_gg_hit->set_time_start(ionization_time);
         if (_store_track_infos_) {
           if (the_step_hit.has_track_id()) {
-            current_gg_hit->grab_auxiliaries().update(mctools::track_utils::TRACK_ID_KEY,
-                                                      the_step_hit.get_track_id());
+            current_gg_hit->set_track_id(the_step_hit.get_track_id());
+            // current_gg_hit->grab_auxiliaries().update(mctools::track_utils::TRACK_ID_KEY,
+            //                                           the_step_hit.get_track_id());
           }
           if (the_step_hit.has_parent_track_id()) {
-            current_gg_hit->grab_auxiliaries().update(mctools::track_utils::PARENT_TRACK_ID_KEY,
-                                                      the_step_hit.get_parent_track_id());
+            current_gg_hit->set_parent_track_id(the_step_hit.get_parent_track_id());
+            // current_gg_hit->grab_auxiliaries().update(mctools::track_utils::PARENT_TRACK_ID_KEY,
+            //                                           the_step_hit.get_parent_track_id());
           }
         }
         // store primary particle information
@@ -1085,6 +1096,9 @@ void gg_step_hit_processor::_process(
         if (is_primary_particle) {
           current_gg_hit->grab_auxiliaries().update_flag(
               mctools::track_utils::PRIMARY_PARTICLE_FLAG);
+        }
+        if (the_step_hit.has_primary_particle() && the_step_hit.is_primary_particle()) {
+          current_gg_hit->set_primary_particle(true);
         }
       }
       if (_compute_minimum_approach_position_ &&
