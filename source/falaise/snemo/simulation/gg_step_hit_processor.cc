@@ -1025,7 +1025,7 @@ void gg_step_hit_processor::_process(
       //   current_gg_hit->grab_auxiliaries().store_flag(mctools::track_utils::PRIMARY_PARTICLE_FLAG);
       // }
       const bool is_primary_particle = the_step_hit.has_primary_particle() && the_step_hit.is_primary_particle();
-      if (the_step_hit.has_primary_particle() && the_step_hit.is_primary_particle()) {
+      if (is_primary_particle) {
         current_gg_hit->set_primary_particle(true);
       }
       
