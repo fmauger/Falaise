@@ -2,7 +2,7 @@ Ca48.0nubb : Neutrinoless double beta decay of Ca-48, 0nubb(mn) : DBD/Ca48 :
 Ca48.0nubb_rhc_lambda_0 : Neutrinoless double beta decay of Ca-48, 0nubb(rhc-lambda) 0+ -> 0+ {2n} : DBD/Ca48 : 
 Ca48.0nubb_rhc_lambda_0_2 : Neutrinoless double beta decay of Ca-48, 0nubb(rhc-lambda) 0+ -> 0+, 2+ {N*} : DBD/Ca48 : 
 Ca48.2nubb : Two neutrino double beta decay of Ca-48, 2nubb : DBD/Ca48 : 
-Ca48.2nubb_2.9MeV : Two neutrino double beta decay of Ca-48, 2nubb (E > 2.9 MeV): DBD/Ca48 : 
+Ca48.2nubb_2.9MeV : Two neutrino double beta decay of Ca-48, 2nubb (Esum > 2.9 MeV): DBD/Ca48 : 
 Ca48.0nubbM1 : Neutrinoless double beta decay of Ca-48, 0nubbM1 : DBD/Ca48 : 
 Ca48.0nubbM2 : Neutrinoless double beta decay of Ca-48, 0nubbM2 : DBD/Ca48 : 
 Se82.0nubb : Neutrinoless double beta decay of Se-82, 0nubb(mn) : DBD/Se82 : 
@@ -11,6 +11,11 @@ Se82.0nubb_rhc_lambda_0_2 : Neutrinoless double beta decay of Se-82, 0nubb(rhc-l
 Se82.2nubb : Two neutrino double beta decay of Se-82, 2nubb : DBD/Se82 : 
 Se82.0nubbM1 : Neutrinoless double beta decay of Se-82, 0nubbM1 : DBD/Se82 : 
 Se82.0nubbM2 : Neutrinoless double beta decay of Se-82, 0nubbM2 : DBD/Se82 : 
+Se82.2nubb_2MeV : Two neutrino double beta decay of Se-82, 2nubb (Esum > 2 MeV): DBD/Se82 :
+Se82.2nubb_gA_g0 : Two neutrino double beta decay of Se-82, 2nubb(gA) with g0 mechanism : DBD/Se82 :
+Se82.2nubb_gA_g2 : Two neutrino double beta decay of Se-82, 2nubb(gA) with g2 mechanism : DBD/Se82 :
+Se82.2nubb_gA_g22 : Two neutrino double beta decay of Se-82, 2nubb(gA) with g22 mechanism : DBD/Se82 :
+Se82.2nubb_gA_g4 : Two neutrino double beta decay of Se-82, 2nubb(gA) with g4 mechanism : DBD/Se82 :
 Mo100.0nubb : Neutrinoless double beta decay of Mo-100, 0nubb(mn) : DBD/Mo100 : 
 Mo100.0nubb_rhc_lambda_0 : Neutrinoless double beta decay of Mo-100, 0nubb(rhc-lambda) 0+ -> 0+ {2n} : DBD/Mo100 : 
 Mo100.0nubb_rhc_lambda_0_2 : Neutrinoless double beta decay of Mo-100, 0nubb(rhc-lambda) 0+ -> 0+, 2+ {N*} : DBD/Mo100 : 
