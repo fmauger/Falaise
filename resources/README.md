@@ -10,7 +10,7 @@ genbb
 Definitions of Bayeux/GenBB event generators. These only describe
 the particles/kinematics rather than vertices. Definitions are
 organized into files based on an overall category such as Double Beta,
-Backgrouns, Calibration and Generic.
+Backgrounds, Calibration and Generic.
 
 It also provides generators than can be modified using the Bayeux
 "variants" system.
@@ -37,11 +37,10 @@ detector.
 
 - snemo/demonstrator/geometry
   - full Bayeux/geomtools model for the detector
+  - Bayeux/genvtx definitions for vertex generation in the detector
+    (effectively coupled to snemo/demonstrator/geometry)
 - snemo/demonstrator/reconstruction
   - current flreconstruct pipelines for reconstruction
-- snemo/demonstrator/vertexes
-  - Bayeux/genvtx definitions for vertex generation in the detector
-  - Effectively coupled to snemo/demonstrator/geometry
 - snemo/demonstrator/geant4_control
   - Geant4 configuration for the detector, used in flsimulate
   - Uses geometry, vertexes, genbb and materials either directly

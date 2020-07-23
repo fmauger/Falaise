@@ -86,13 +86,13 @@
     string.enumerated.size : integer = 2
       string.enumerated_0.value : string = "Basic"
       string.enumerated_0.variant : string = "if_basic"
-      string.enumerated_1.value : string = "RealSource"
-      string.enumerated_1.variant : string = "if_realistic"
-  variants : string[2] = "if_basic" "if_realistic"
+      string.enumerated_1.value : string = "RealisticFlat"
+      string.enumerated_1.variant : string = "if_realistic_flat"
+  variants : string[2] = "if_basic" "if_realistic_flat"
     variants.if_basic.model       : string = "source_betabeta.basic.VM"
     variants.if_basic.description : string = "Set of parameters for basic beta-beta source layout"
-    variants.if_realistic.model       : string = "source_betabeta.realistic.VM"
-    variants.if_realistic.description : string = "Set of parameters for realistic beta-beta source layout"
+    variants.if_realistic_flat.model       : string = "source_betabeta.realistic.VM"
+    variants.if_realistic_flat.description : string = "Set of parameters for realistic flat beta-beta source layout"
 
 
 [name="source_betabeta.VM" type="variant"]

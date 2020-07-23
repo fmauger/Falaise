@@ -3,37 +3,27 @@
 # Date   : June 2018
 # Geometry based on Andrea source foil review
 
-
-
 ###############################################################################
 [name="short_film.realistic.model" type="geomtools::simple_shaped_model"]
-
 shape_type         : string  = "box"
 x                  : real as length =   12.0 um 
 y                  : real as length =    125 mm
 z                  : real as length =  425.0 mm
-
 material.ref       : string  = "basic::mylar"
-
 visibility.hidden  : boolean = false
-visibility.color : string = "cyan"
-
+visibility.color   : string = "cyan"
 
 ###############################################################################
 [name="source_film.realistic.model" type="geomtools::simple_shaped_model"]
-
 shape_type         : string  = "box"
 x                  : real as length =   12.0 um 
 y                  : real as length =  135.5 mm
 z                  : real as length = 3350.0 mm
-
 material.ref       : string  = "basic::mylar"
-
 visibility.hidden  : boolean = false
 visibility.color   : string  = "cyan"
 
 ##########################################################################
-
 [name="snemo_foil_0_pad_0.model" type="geomtools::simple_shaped_model"]
 shape_type         : string  = "box"
 length_unit        : string  = "cm"
@@ -44,68 +34,39 @@ material.ref       : string  = "basic::copper"
 visibility.hidden  : boolean = 0
 visibility.color   : string  = "magenta"
 
-
-
-
-
-
+#########################################################################
 [name="snemo_source_0.model" type="geomtools::simple_shaped_model"]
-
 shape_type         : string  = "box"
 x                  : real    =   43.0 um
 y                  : real    =   12.5 cm
 z                  : real    = 3350.0 mm
-
 material.ref       : string  = "tracking_gas"
-
-# #@description The list of internal items
 internal_item.labels : string[3] = "bottom_film" "source_0_0" "top_film"
-
-# Describe the internal items :
 internal_item.model.bottom_film       : string  = "short_film.realistic.model"
 internal_item.placement.bottom_film   : string  = "0 0 -1460 (mm) "
-
 internal_item.model.source_0_0        : string  = "snemo_foil_0_pad_0.model"
 internal_item.placement.source_0_0    : string  = "0 0 0 (mm) "
-
 internal_item.model.top_film          : string  = "short_film.realistic.model"
 internal_item.placement.top_film      : string  = "0 0 +1460 (mm) "
-
 visibility.color  : string = "green"
-
 # # Mapping the source foil from its parent category :
 mapping.daughter_id.source_0_0 : string = "[source_pad:pad=0]"
 #mapping.daughter_id.bottom_film  : string = "[source_strip_film:film=0]"
 #mapping.daughter_id.top_film  : string = "[source_strip_film:film=1]"	
 
-
-
 #########################################################################
 [name="snemo_strip_0.model" type="geomtools::stacked_model"]
-
 stacked.axis            : string = "x"
 stacked.number_of_items : integer = 1
-
-# stacked.model_0   : string = "source_film.realistic.model"
-# stacked.label_0   : string = "back_film"
-
 stacked.model_0  : string = "snemo_source_0.model"
 stacked.label_0  : string = "source"
-
-# stacked.model_2   : string = "source_film.realistic.model"
-# stacked.label_2   : string = "front_film"
-
-material.ref      : string = "tracking_gas"
-
-visibility.color  : string = "green"
-
-# Mapping the daughter volumes :
+material.ref     : string = "tracking_gas"
+visibility.color : string = "green"
+# # Mapping the daughter volumes :
 # mapping.daughter_id.back_film  : string = "[source_strip_film:film=0]"
 # mapping.daughter_id.front_film : string = "[source_strip_film:film=1]"
 
-
 ##########################################################################
-
 [name="snemo_foil_1_pad_0.model" type="geomtools::simple_shaped_model"]
 shape_type         : string  = "box"
 length_unit        : string  = "cm"
@@ -121,42 +82,29 @@ visibility.color   : string  = "magenta"
 material.ref            : string = "tracking_gas"
 stacked.axis            : string = "z"
 stacked.number_of_items : integer = 1
-
 stacked.model_0   : string  = "snemo_foil_1_pad_0.model"
 stacked.label_0   : string  = "snemo_pad_1_0"
-
-
-
 visibility.hidden  : boolean = 0
-
 # Mapping the source foil from its parent category :
 mapping.daughter_id.snemo_pad_1_0 : string = "[source_pad:pad=0]"
     
 #########################################################################
 [name="snemo_strip_1.model" type="geomtools::stacked_model"]
-
 stacked.axis            : string = "x"
 stacked.number_of_items : integer = 3
-
 stacked.model_0   : string = "source_film.realistic.model"
 stacked.label_0   : string = "back_film"
-
 stacked.model_1   : string = "snemo_source_1.model"
 stacked.label_1   : string = "source"
-
 stacked.model_2   : string = "source_film.realistic.model"
 stacked.label_2   : string = "front_film"
-
 material.ref      : string = "tracking_gas"
-
 visibility.color  : string = "green"
-
 # Mapping the daughter volumes :
 mapping.daughter_id.back_film  : string = "[source_strip_film:film=0]"
 mapping.daughter_id.front_film : string = "[source_strip_film:film=1]"
 
 ##########################################################################
-
 [name="snemo_foil_2_pad_0.model" type="geomtools::simple_shaped_model"]
 shape_type         : string  = "box"
 length_unit        : string  = "cm"
@@ -172,42 +120,29 @@ visibility.color   : string  = "magenta"
 material.ref            : string = "tracking_gas"
 stacked.axis            : string = "z"
 stacked.number_of_items : integer = 1
-
 stacked.model_0   : string  = "snemo_foil_2_pad_0.model"
 stacked.label_0   : string  = "snemo_pad_2_0"
-
-
-
 visibility.hidden  : boolean = 0
-
 # Mapping the source foil from its parent category :
 mapping.daughter_id.snemo_pad_2_0 : string = "[source_pad:pad=0]"
     
 #########################################################################
 [name="snemo_strip_2.model" type="geomtools::stacked_model"]
-
 stacked.axis            : string = "x"
 stacked.number_of_items : integer = 3
-
 stacked.model_0   : string = "source_film.realistic.model"
 stacked.label_0   : string = "back_film"
-
 stacked.model_1   : string = "snemo_source_2.model"
 stacked.label_1   : string = "source"
-
 stacked.model_2   : string = "source_film.realistic.model"
 stacked.label_2   : string = "front_film"
-
 material.ref      : string = "tracking_gas"
-
 visibility.color  : string = "green"
-
 # Mapping the daughter volumes :
 mapping.daughter_id.back_film  : string = "[source_strip_film:film=0]"
 mapping.daughter_id.front_film : string = "[source_strip_film:film=1]"
 
 ##########################################################################
-
 [name="snemo_foil_3_pad_0.model" type="geomtools::simple_shaped_model"]
 shape_type         : string  = "box"
 length_unit        : string  = "cm"
@@ -223,42 +158,29 @@ visibility.color   : string  = "magenta"
 material.ref            : string = "tracking_gas"
 stacked.axis            : string = "z"
 stacked.number_of_items : integer = 1
-
 stacked.model_0   : string  = "snemo_foil_3_pad_0.model"
 stacked.label_0   : string  = "snemo_pad_3_0"
-
-
-
 visibility.hidden  : boolean = 0
-
 # Mapping the source foil from its parent category :
 mapping.daughter_id.snemo_pad_3_0 : string = "[source_pad:pad=0]"
     
 #########################################################################
 [name="snemo_strip_3.model" type="geomtools::stacked_model"]
-
 stacked.axis            : string = "x"
 stacked.number_of_items : integer = 3
-
 stacked.model_0   : string = "source_film.realistic.model"
 stacked.label_0   : string = "back_film"
-
 stacked.model_1   : string = "snemo_source_3.model"
 stacked.label_1   : string = "source"
-
 stacked.model_2   : string = "source_film.realistic.model"
 stacked.label_2   : string = "front_film"
-
 material.ref      : string = "tracking_gas"
-
 visibility.color  : string = "green"
-
 # Mapping the daughter volumes :
 mapping.daughter_id.back_film  : string = "[source_strip_film:film=0]"
 mapping.daughter_id.front_film : string = "[source_strip_film:film=1]"
 
 ##########################################################################
-
 [name="snemo_foil_4_pad_0.model" type="geomtools::simple_shaped_model"]
 shape_type         : string  = "box"
 length_unit        : string  = "cm"
@@ -274,42 +196,29 @@ visibility.color   : string  = "magenta"
 material.ref            : string = "tracking_gas"
 stacked.axis            : string = "z"
 stacked.number_of_items : integer = 1
-
 stacked.model_0   : string  = "snemo_foil_4_pad_0.model"
 stacked.label_0   : string  = "snemo_pad_4_0"
-
-
-
 visibility.hidden  : boolean = 0
-
 # Mapping the source foil from its parent category :
 mapping.daughter_id.snemo_pad_4_0 : string = "[source_pad:pad=0]"
     
 #########################################################################
 [name="snemo_strip_4.model" type="geomtools::stacked_model"]
-
 stacked.axis            : string = "x"
 stacked.number_of_items : integer = 3
-
 stacked.model_0   : string = "source_film.realistic.model"
 stacked.label_0   : string = "back_film"
-
 stacked.model_1   : string = "snemo_source_4.model"
 stacked.label_1   : string = "source"
-
 stacked.model_2   : string = "source_film.realistic.model"
 stacked.label_2   : string = "front_film"
-
 material.ref      : string = "tracking_gas"
-
 visibility.color  : string = "green"
-
 # Mapping the daughter volumes :
 mapping.daughter_id.back_film  : string = "[source_strip_film:film=0]"
 mapping.daughter_id.front_film : string = "[source_strip_film:film=1]"
 
 ##########################################################################
-
 [name="snemo_foil_5_pad_0.model" type="geomtools::simple_shaped_model"]
 shape_type         : string  = "box"
 length_unit        : string  = "cm"
@@ -325,42 +234,29 @@ visibility.color   : string  = "magenta"
 material.ref            : string = "tracking_gas"
 stacked.axis            : string = "z"
 stacked.number_of_items : integer = 1
-
 stacked.model_0   : string  = "snemo_foil_5_pad_0.model"
 stacked.label_0   : string  = "snemo_pad_5_0"
-
-
-
 visibility.hidden  : boolean = 0
-
 # Mapping the source foil from its parent category :
 mapping.daughter_id.snemo_pad_5_0 : string = "[source_pad:pad=0]"
     
 #########################################################################
 [name="snemo_strip_5.model" type="geomtools::stacked_model"]
-
 stacked.axis            : string = "x"
 stacked.number_of_items : integer = 3
-
 stacked.model_0   : string = "source_film.realistic.model"
 stacked.label_0   : string = "back_film"
-
 stacked.model_1   : string = "snemo_source_5.model"
 stacked.label_1   : string = "source"
-
 stacked.model_2   : string = "source_film.realistic.model"
 stacked.label_2   : string = "front_film"
-
 material.ref      : string = "tracking_gas"
-
 visibility.color  : string = "green"
-
 # Mapping the daughter volumes :
 mapping.daughter_id.back_film  : string = "[source_strip_film:film=0]"
 mapping.daughter_id.front_film : string = "[source_strip_film:film=1]"
 
 ##########################################################################
-
 [name="snemo_foil_6_pad_0.model" type="geomtools::simple_shaped_model"]
 shape_type         : string  = "box"
 length_unit        : string  = "cm"
@@ -376,42 +272,29 @@ visibility.color   : string  = "magenta"
 material.ref            : string = "tracking_gas"
 stacked.axis            : string = "z"
 stacked.number_of_items : integer = 1
-
 stacked.model_0   : string  = "snemo_foil_6_pad_0.model"
 stacked.label_0   : string  = "snemo_pad_6_0"
-
-
-
 visibility.hidden  : boolean = 0
-
 # Mapping the source foil from its parent category :
 mapping.daughter_id.snemo_pad_6_0 : string = "[source_pad:pad=0]"
     
 #########################################################################
 [name="snemo_strip_6.model" type="geomtools::stacked_model"]
-
 stacked.axis            : string = "x"
 stacked.number_of_items : integer = 3
-
 stacked.model_0   : string = "source_film.realistic.model"
 stacked.label_0   : string = "back_film"
-
 stacked.model_1   : string = "snemo_source_6.model"
 stacked.label_1   : string = "source"
-
 stacked.model_2   : string = "source_film.realistic.model"
 stacked.label_2   : string = "front_film"
-
 material.ref      : string = "tracking_gas"
-
 visibility.color  : string = "green"
-
 # Mapping the daughter volumes :
 mapping.daughter_id.back_film  : string = "[source_strip_film:film=0]"
 mapping.daughter_id.front_film : string = "[source_strip_film:film=1]"
 
 ##########################################################################
-
 [name="snemo_foil_7_pad_0.model" type="geomtools::simple_shaped_model"]
 shape_type         : string  = "box"
 length_unit        : string  = "cm"
@@ -427,42 +310,29 @@ visibility.color   : string  = "magenta"
 material.ref            : string = "tracking_gas"
 stacked.axis            : string = "z"
 stacked.number_of_items : integer = 1
-
 stacked.model_0   : string  = "snemo_foil_7_pad_0.model"
 stacked.label_0   : string  = "snemo_pad_7_0"
-
-
-
 visibility.hidden  : boolean = 0
-
 # Mapping the source foil from its parent category :
 mapping.daughter_id.snemo_pad_7_0 : string = "[source_pad:pad=0]"
     
 #########################################################################
 [name="snemo_strip_7.model" type="geomtools::stacked_model"]
-
 stacked.axis            : string = "x"
 stacked.number_of_items : integer = 3
-
 stacked.model_0   : string = "source_film.realistic.model"
 stacked.label_0   : string = "back_film"
-
 stacked.model_1   : string = "snemo_source_7.model"
 stacked.label_1   : string = "source"
-
 stacked.model_2   : string = "source_film.realistic.model"
 stacked.label_2   : string = "front_film"
-
 material.ref      : string = "tracking_gas"
-
 visibility.color  : string = "green"
-
 # Mapping the daughter volumes :
 mapping.daughter_id.back_film  : string = "[source_strip_film:film=0]"
 mapping.daughter_id.front_film : string = "[source_strip_film:film=1]"
 
 ##########################################################################
-
 [name="snemo_foil_8_pad_0.model" type="geomtools::simple_shaped_model"]
 shape_type         : string  = "box"
 length_unit        : string  = "cm"
@@ -478,42 +348,29 @@ visibility.color   : string  = "magenta"
 material.ref            : string = "tracking_gas"
 stacked.axis            : string = "z"
 stacked.number_of_items : integer = 1
-
 stacked.model_0   : string  = "snemo_foil_8_pad_0.model"
 stacked.label_0   : string  = "snemo_pad_8_0"
-
-
-
 visibility.hidden  : boolean = 0
-
 # Mapping the source foil from its parent category :
 mapping.daughter_id.snemo_pad_8_0 : string = "[source_pad:pad=0]"
     
 #########################################################################
 [name="snemo_strip_8.model" type="geomtools::stacked_model"]
-
 stacked.axis            : string = "x"
 stacked.number_of_items : integer = 3
-
 stacked.model_0   : string = "source_film.realistic.model"
 stacked.label_0   : string = "back_film"
-
 stacked.model_1   : string = "snemo_source_8.model"
 stacked.label_1   : string = "source"
-
 stacked.model_2   : string = "source_film.realistic.model"
 stacked.label_2   : string = "front_film"
-
 material.ref      : string = "tracking_gas"
-
 visibility.color  : string = "green"
-
 # Mapping the daughter volumes :
 mapping.daughter_id.back_film  : string = "[source_strip_film:film=0]"
 mapping.daughter_id.front_film : string = "[source_strip_film:film=1]"
 
 ##########################################################################
-
 [name="snemo_foil_9_pad_0.model" type="geomtools::simple_shaped_model"]
 shape_type         : string  = "box"
 length_unit        : string  = "cm"
@@ -529,42 +386,29 @@ visibility.color   : string  = "magenta"
 material.ref            : string = "tracking_gas"
 stacked.axis            : string = "z"
 stacked.number_of_items : integer = 1
-
 stacked.model_0   : string  = "snemo_foil_9_pad_0.model"
 stacked.label_0   : string  = "snemo_pad_9_0"
-
-
-
 visibility.hidden  : boolean = 0
-
 # Mapping the source foil from its parent category :
 mapping.daughter_id.snemo_pad_9_0 : string = "[source_pad:pad=0]"
     
 #########################################################################
 [name="snemo_strip_9.model" type="geomtools::stacked_model"]
-
 stacked.axis            : string = "x"
 stacked.number_of_items : integer = 3
-
 stacked.model_0   : string = "source_film.realistic.model"
 stacked.label_0   : string = "back_film"
-
 stacked.model_1   : string = "snemo_source_9.model"
 stacked.label_1   : string = "source"
-
 stacked.model_2   : string = "source_film.realistic.model"
 stacked.label_2   : string = "front_film"
-
 material.ref      : string = "tracking_gas"
-
 visibility.color  : string = "green"
-
 # Mapping the daughter volumes :
 mapping.daughter_id.back_film  : string = "[source_strip_film:film=0]"
 mapping.daughter_id.front_film : string = "[source_strip_film:film=1]"
 
 ##########################################################################
-
 [name="snemo_foil_10_pad_0.model" type="geomtools::simple_shaped_model"]
 shape_type         : string  = "box"
 length_unit        : string  = "cm"
@@ -580,42 +424,29 @@ visibility.color   : string  = "magenta"
 material.ref            : string = "tracking_gas"
 stacked.axis            : string = "z"
 stacked.number_of_items : integer = 1
-
 stacked.model_0   : string  = "snemo_foil_10_pad_0.model"
 stacked.label_0   : string  = "snemo_pad_10_0"
-
-
-
 visibility.hidden  : boolean = 0
-
 # Mapping the source foil from its parent category :
 mapping.daughter_id.snemo_pad_10_0 : string = "[source_pad:pad=0]"
     
 #########################################################################
 [name="snemo_strip_10.model" type="geomtools::stacked_model"]
-
 stacked.axis            : string = "x"
 stacked.number_of_items : integer = 3
-
 stacked.model_0   : string = "source_film.realistic.model"
 stacked.label_0   : string = "back_film"
-
 stacked.model_1   : string = "snemo_source_10.model"
 stacked.label_1   : string = "source"
-
 stacked.model_2   : string = "source_film.realistic.model"
 stacked.label_2   : string = "front_film"
-
 material.ref      : string = "tracking_gas"
-
 visibility.color  : string = "green"
-
 # Mapping the daughter volumes :
 mapping.daughter_id.back_film  : string = "[source_strip_film:film=0]"
 mapping.daughter_id.front_film : string = "[source_strip_film:film=1]"
 
 ##########################################################################
-
 [name="snemo_foil_11_pad_0.model" type="geomtools::simple_shaped_model"]
 shape_type         : string  = "box"
 length_unit        : string  = "cm"
@@ -631,42 +462,29 @@ visibility.color   : string  = "magenta"
 material.ref            : string = "tracking_gas"
 stacked.axis            : string = "z"
 stacked.number_of_items : integer = 1
-
 stacked.model_0   : string  = "snemo_foil_11_pad_0.model"
 stacked.label_0   : string  = "snemo_pad_11_0"
-
-
-
 visibility.hidden  : boolean = 0
-
 # Mapping the source foil from its parent category :
 mapping.daughter_id.snemo_pad_11_0 : string = "[source_pad:pad=0]"
     
 #########################################################################
 [name="snemo_strip_11.model" type="geomtools::stacked_model"]
-
 stacked.axis            : string = "x"
 stacked.number_of_items : integer = 3
-
 stacked.model_0   : string = "source_film.realistic.model"
 stacked.label_0   : string = "back_film"
-
 stacked.model_1   : string = "snemo_source_11.model"
 stacked.label_1   : string = "source"
-
 stacked.model_2   : string = "source_film.realistic.model"
 stacked.label_2   : string = "front_film"
-
 material.ref      : string = "tracking_gas"
-
 visibility.color  : string = "green"
-
 # Mapping the daughter volumes :
 mapping.daughter_id.back_film  : string = "[source_strip_film:film=0]"
 mapping.daughter_id.front_film : string = "[source_strip_film:film=1]"
 
 ##########################################################################
-
 [name="snemo_foil_12_pad_0.model" type="geomtools::simple_shaped_model"]
 shape_type         : string  = "box"
 length_unit        : string  = "cm"
@@ -682,42 +500,29 @@ visibility.color   : string  = "magenta"
 material.ref            : string = "tracking_gas"
 stacked.axis            : string = "z"
 stacked.number_of_items : integer = 1
-
 stacked.model_0   : string  = "snemo_foil_12_pad_0.model"
 stacked.label_0   : string  = "snemo_pad_12_0"
-
-
-
 visibility.hidden  : boolean = 0
-
 # Mapping the source foil from its parent category :
 mapping.daughter_id.snemo_pad_12_0 : string = "[source_pad:pad=0]"
     
 #########################################################################
 [name="snemo_strip_12.model" type="geomtools::stacked_model"]
-
 stacked.axis            : string = "x"
 stacked.number_of_items : integer = 3
-
 stacked.model_0   : string = "source_film.realistic.model"
 stacked.label_0   : string = "back_film"
-
 stacked.model_1   : string = "snemo_source_12.model"
 stacked.label_1   : string = "source"
-
 stacked.model_2   : string = "source_film.realistic.model"
 stacked.label_2   : string = "front_film"
-
 material.ref      : string = "tracking_gas"
-
 visibility.color  : string = "green"
-
 # Mapping the daughter volumes :
 mapping.daughter_id.back_film  : string = "[source_strip_film:film=0]"
 mapping.daughter_id.front_film : string = "[source_strip_film:film=1]"
 
 ##########################################################################
-
 [name="snemo_foil_13_pad_0.model" type="geomtools::simple_shaped_model"]
 shape_type         : string  = "box"
 length_unit        : string  = "cm"
@@ -733,42 +538,29 @@ visibility.color   : string  = "magenta"
 material.ref            : string = "tracking_gas"
 stacked.axis            : string = "z"
 stacked.number_of_items : integer = 1
-
 stacked.model_0   : string  = "snemo_foil_13_pad_0.model"
 stacked.label_0   : string  = "snemo_pad_13_0"
-
-
-
 visibility.hidden  : boolean = 0
-
 # Mapping the source foil from its parent category :
 mapping.daughter_id.snemo_pad_13_0 : string = "[source_pad:pad=0]"
     
 #########################################################################
 [name="snemo_strip_13.model" type="geomtools::stacked_model"]
-
 stacked.axis            : string = "x"
 stacked.number_of_items : integer = 3
-
 stacked.model_0   : string = "source_film.realistic.model"
 stacked.label_0   : string = "back_film"
-
 stacked.model_1   : string = "snemo_source_13.model"
 stacked.label_1   : string = "source"
-
 stacked.model_2   : string = "source_film.realistic.model"
 stacked.label_2   : string = "front_film"
-
 material.ref      : string = "tracking_gas"
-
 visibility.color  : string = "green"
-
 # Mapping the daughter volumes :
 mapping.daughter_id.back_film  : string = "[source_strip_film:film=0]"
 mapping.daughter_id.front_film : string = "[source_strip_film:film=1]"
 
 ##########################################################################
-
 [name="snemo_foil_14_pad_0.model" type="geomtools::simple_shaped_model"]
 shape_type         : string  = "box"
 length_unit        : string  = "cm"
@@ -784,42 +576,29 @@ visibility.color   : string  = "magenta"
 material.ref            : string = "tracking_gas"
 stacked.axis            : string = "z"
 stacked.number_of_items : integer = 1
-
 stacked.model_0   : string  = "snemo_foil_14_pad_0.model"
 stacked.label_0   : string  = "snemo_pad_14_0"
-
-
-
 visibility.hidden  : boolean = 0
-
 # Mapping the source foil from its parent category :
 mapping.daughter_id.snemo_pad_14_0 : string = "[source_pad:pad=0]"
     
 #########################################################################
 [name="snemo_strip_14.model" type="geomtools::stacked_model"]
-
 stacked.axis            : string = "x"
 stacked.number_of_items : integer = 3
-
 stacked.model_0   : string = "source_film.realistic.model"
 stacked.label_0   : string = "back_film"
-
 stacked.model_1   : string = "snemo_source_14.model"
 stacked.label_1   : string = "source"
-
 stacked.model_2   : string = "source_film.realistic.model"
 stacked.label_2   : string = "front_film"
-
 material.ref      : string = "tracking_gas"
-
 visibility.color  : string = "green"
-
 # Mapping the daughter volumes :
 mapping.daughter_id.back_film  : string = "[source_strip_film:film=0]"
 mapping.daughter_id.front_film : string = "[source_strip_film:film=1]"
 
 ##########################################################################
-
 [name="snemo_foil_15_pad_0.model" type="geomtools::simple_shaped_model"]
 shape_type         : string  = "box"
 length_unit        : string  = "cm"
@@ -835,42 +614,29 @@ visibility.color   : string  = "magenta"
 material.ref            : string = "tracking_gas"
 stacked.axis            : string = "z"
 stacked.number_of_items : integer = 1
-
 stacked.model_0   : string  = "snemo_foil_15_pad_0.model"
 stacked.label_0   : string  = "snemo_pad_15_0"
-
-
-
 visibility.hidden  : boolean = 0
-
 # Mapping the source foil from its parent category :
 mapping.daughter_id.snemo_pad_15_0 : string = "[source_pad:pad=0]"
     
 #########################################################################
 [name="snemo_strip_15.model" type="geomtools::stacked_model"]
-
 stacked.axis            : string = "x"
 stacked.number_of_items : integer = 3
-
 stacked.model_0   : string = "source_film.realistic.model"
 stacked.label_0   : string = "back_film"
-
 stacked.model_1   : string = "snemo_source_15.model"
 stacked.label_1   : string = "source"
-
 stacked.model_2   : string = "source_film.realistic.model"
 stacked.label_2   : string = "front_film"
-
 material.ref      : string = "tracking_gas"
-
 visibility.color  : string = "green"
-
 # Mapping the daughter volumes :
 mapping.daughter_id.back_film  : string = "[source_strip_film:film=0]"
 mapping.daughter_id.front_film : string = "[source_strip_film:film=1]"
 
 ##########################################################################
-
 [name="snemo_foil_16_pad_0.model" type="geomtools::simple_shaped_model"]
 shape_type         : string  = "box"
 length_unit        : string  = "cm"
@@ -886,42 +652,29 @@ visibility.color   : string  = "magenta"
 material.ref            : string = "tracking_gas"
 stacked.axis            : string = "z"
 stacked.number_of_items : integer = 1
-
 stacked.model_0   : string  = "snemo_foil_16_pad_0.model"
 stacked.label_0   : string  = "snemo_pad_16_0"
-
-
-
 visibility.hidden  : boolean = 0
-
 # Mapping the source foil from its parent category :
 mapping.daughter_id.snemo_pad_16_0 : string = "[source_pad:pad=0]"
     
 #########################################################################
 [name="snemo_strip_16.model" type="geomtools::stacked_model"]
-
 stacked.axis            : string = "x"
 stacked.number_of_items : integer = 3
-
 stacked.model_0   : string = "source_film.realistic.model"
 stacked.label_0   : string = "back_film"
-
 stacked.model_1   : string = "snemo_source_16.model"
 stacked.label_1   : string = "source"
-
 stacked.model_2   : string = "source_film.realistic.model"
 stacked.label_2   : string = "front_film"
-
 material.ref      : string = "tracking_gas"
-
 visibility.color  : string = "green"
-
 # Mapping the daughter volumes :
 mapping.daughter_id.back_film  : string = "[source_strip_film:film=0]"
 mapping.daughter_id.front_film : string = "[source_strip_film:film=1]"
 
 ##########################################################################
-
 [name="snemo_foil_17_pad_0.model" type="geomtools::simple_shaped_model"]
 shape_type         : string  = "box"
 length_unit        : string  = "cm"
@@ -937,42 +690,29 @@ visibility.color   : string  = "magenta"
 material.ref            : string = "tracking_gas"
 stacked.axis            : string = "z"
 stacked.number_of_items : integer = 1
-
 stacked.model_0   : string  = "snemo_foil_17_pad_0.model"
 stacked.label_0   : string  = "snemo_pad_17_0"
-
-
-
 visibility.hidden  : boolean = 0
-
 # Mapping the source foil from its parent category :
 mapping.daughter_id.snemo_pad_17_0 : string = "[source_pad:pad=0]"
     
 #########################################################################
 [name="snemo_strip_17.model" type="geomtools::stacked_model"]
-
 stacked.axis            : string = "x"
 stacked.number_of_items : integer = 3
-
 stacked.model_0   : string = "source_film.realistic.model"
 stacked.label_0   : string = "back_film"
-
 stacked.model_1   : string = "snemo_source_17.model"
 stacked.label_1   : string = "source"
-
 stacked.model_2   : string = "source_film.realistic.model"
 stacked.label_2   : string = "front_film"
-
 material.ref      : string = "tracking_gas"
-
 visibility.color  : string = "green"
-
 # Mapping the daughter volumes :
 mapping.daughter_id.back_film  : string = "[source_strip_film:film=0]"
 mapping.daughter_id.front_film : string = "[source_strip_film:film=1]"
 
 ##########################################################################
-
 [name="snemo_foil_18_pad_0.model" type="geomtools::simple_shaped_model"]
 shape_type         : string  = "box"
 length_unit        : string  = "cm"
@@ -988,42 +728,29 @@ visibility.color   : string  = "magenta"
 material.ref            : string = "tracking_gas"
 stacked.axis            : string = "z"
 stacked.number_of_items : integer = 1
-
 stacked.model_0   : string  = "snemo_foil_18_pad_0.model"
 stacked.label_0   : string  = "snemo_pad_18_0"
-
-
-
 visibility.hidden  : boolean = 0
-
 # Mapping the source foil from its parent category :
 mapping.daughter_id.snemo_pad_18_0 : string = "[source_pad:pad=0]"
     
 #########################################################################
 [name="snemo_strip_18.model" type="geomtools::stacked_model"]
-
 stacked.axis            : string = "x"
 stacked.number_of_items : integer = 3
-
 stacked.model_0   : string = "source_film.realistic.model"
 stacked.label_0   : string = "back_film"
-
 stacked.model_1   : string = "snemo_source_18.model"
 stacked.label_1   : string = "source"
-
 stacked.model_2   : string = "source_film.realistic.model"
 stacked.label_2   : string = "front_film"
-
 material.ref      : string = "tracking_gas"
-
 visibility.color  : string = "green"
-
 # Mapping the daughter volumes :
 mapping.daughter_id.back_film  : string = "[source_strip_film:film=0]"
 mapping.daughter_id.front_film : string = "[source_strip_film:film=1]"
 
 ##########################################################################
-
 [name="snemo_foil_19_pad_7.model" type="geomtools::simple_shaped_model"]
 shape_type         : string  = "box"
 length_unit        : string  = "cm"
@@ -1035,7 +762,6 @@ visibility.hidden  : boolean = 0
 visibility.color   : string  = "magenta"
 
 ##########################################################################
-
 [name="snemo_foil_19_pad_6.model" type="geomtools::simple_shaped_model"]
 shape_type         : string  = "box"
 length_unit        : string  = "cm"
@@ -1047,7 +773,6 @@ visibility.hidden  : boolean = 0
 visibility.color   : string  = "magenta"
 
 ##########################################################################
-
 [name="snemo_foil_19_pad_5.model" type="geomtools::simple_shaped_model"]
 shape_type         : string  = "box"
 length_unit        : string  = "cm"
@@ -1059,7 +784,6 @@ visibility.hidden  : boolean = 0
 visibility.color   : string  = "magenta"
 
 ##########################################################################
-
 [name="snemo_foil_19_pad_4.model" type="geomtools::simple_shaped_model"]
 shape_type         : string  = "box"
 length_unit        : string  = "cm"
@@ -1071,7 +795,6 @@ visibility.hidden  : boolean = 0
 visibility.color   : string  = "magenta"
 
 ##########################################################################
-
 [name="snemo_foil_19_pad_3.model" type="geomtools::simple_shaped_model"]
 shape_type         : string  = "box"
 length_unit        : string  = "cm"
@@ -1083,7 +806,6 @@ visibility.hidden  : boolean = 0
 visibility.color   : string  = "magenta"
 
 ##########################################################################
-
 [name="snemo_foil_19_pad_2.model" type="geomtools::simple_shaped_model"]
 shape_type         : string  = "box"
 length_unit        : string  = "cm"
@@ -1095,7 +817,6 @@ visibility.hidden  : boolean = 0
 visibility.color   : string  = "magenta"
 
 ##########################################################################
-
 [name="snemo_foil_19_pad_1.model" type="geomtools::simple_shaped_model"]
 shape_type         : string  = "box"
 length_unit        : string  = "cm"
@@ -1107,7 +828,6 @@ visibility.hidden  : boolean = 0
 visibility.color   : string  = "magenta"
 
 ##########################################################################
-
 [name="snemo_foil_19_pad_0.model" type="geomtools::simple_shaped_model"]
 shape_type         : string  = "box"
 length_unit        : string  = "cm"
@@ -1123,46 +843,32 @@ visibility.color   : string  = "magenta"
 material.ref            : string = "tracking_gas"
 stacked.axis            : string = "z"
 stacked.number_of_items : integer = 8
-
 stacked.model_7   : string  = "snemo_foil_19_pad_7.model"
-stacked.limit_max_7 : real as length =16.974999999999998 cm
+stacked.limit_max_7 : real as length = 16.975 cm
 stacked.label_7   : string  = "snemo_pad_19_7"
-
 stacked.model_6   : string  = "snemo_foil_19_pad_6.model"
-stacked.limit_max_6 : real as length =16.974999999999998 cm
+stacked.limit_max_6 : real as length = 16.975 cm
 stacked.label_6   : string  = "snemo_pad_19_6"
-
 stacked.model_5   : string  = "snemo_foil_19_pad_5.model"
-stacked.limit_max_5 : real as length =16.974999999999998 cm
+stacked.limit_max_5 : real as length = 16.975 cm
 stacked.label_5   : string  = "snemo_pad_19_5"
-
 stacked.model_4   : string  = "snemo_foil_19_pad_4.model"
-stacked.limit_max_4 : real as length =16.974999999999998 cm
+stacked.limit_max_4 : real as length = 16.975 cm
 stacked.label_4   : string  = "snemo_pad_19_4"
-
 stacked.model_3   : string  = "snemo_foil_19_pad_3.model"
-stacked.limit_max_3 : real as length =16.974999999999998 cm
+stacked.limit_max_3 : real as length = 16.975 cm
 stacked.label_3   : string  = "snemo_pad_19_3"
-
 stacked.model_2   : string  = "snemo_foil_19_pad_2.model"
-stacked.limit_max_2 : real as length =16.974999999999998 cm
+stacked.limit_max_2 : real as length = 16.975 cm
 stacked.label_2   : string  = "snemo_pad_19_2"
-
 stacked.model_1   : string  = "snemo_foil_19_pad_1.model"
-stacked.limit_max_1 : real as length =16.974999999999998 cm
+stacked.limit_max_1 : real as length = 16.975 cm
 stacked.label_1   : string  = "snemo_pad_19_1"
-
 stacked.model_0   : string  = "snemo_foil_19_pad_0.model"
-stacked.limit_max_0 : real as length =16.974999999999998 cm
+stacked.limit_max_0 : real as length = 16.975 cm
 stacked.label_0   : string  = "snemo_pad_19_0"
-
-
-
 visibility.hidden  : boolean = 0
-
 # Mapping the source foil from its parent category :
-
-    
 mapping.daughter_id.snemo_pad_19_0 : string = "[source_pad:pad=0]"
 mapping.daughter_id.snemo_pad_19_1 : string = "[source_pad:pad=1]"
 mapping.daughter_id.snemo_pad_19_2 : string = "[source_pad:pad=2]"
@@ -1174,29 +880,21 @@ mapping.daughter_id.snemo_pad_19_7 : string = "[source_pad:pad=7]"
     
 #########################################################################
 [name="snemo_strip_19.model" type="geomtools::stacked_model"]
-
 stacked.axis            : string = "x"
 stacked.number_of_items : integer = 3
-
 stacked.model_0   : string = "source_film.realistic.model"
 stacked.label_0   : string = "back_film"
-
 stacked.model_1   : string = "snemo_source_19.model"
 stacked.label_1   : string = "source"
-
 stacked.model_2   : string = "source_film.realistic.model"
 stacked.label_2   : string = "front_film"
-
 material.ref      : string = "tracking_gas"
-
 visibility.color  : string = "green"
-
 # Mapping the daughter volumes :
 mapping.daughter_id.back_film  : string = "[source_strip_film:film=0]"
 mapping.daughter_id.front_film : string = "[source_strip_film:film=1]"
 
 ##########################################################################
-
 [name="snemo_foil_20_pad_7.model" type="geomtools::simple_shaped_model"]
 shape_type         : string  = "box"
 length_unit        : string  = "cm"
@@ -1208,7 +906,6 @@ visibility.hidden  : boolean = 0
 visibility.color   : string  = "magenta"
 
 ##########################################################################
-
 [name="snemo_foil_20_pad_6.model" type="geomtools::simple_shaped_model"]
 shape_type         : string  = "box"
 length_unit        : string  = "cm"
@@ -1220,7 +917,6 @@ visibility.hidden  : boolean = 0
 visibility.color   : string  = "magenta"
 
 ##########################################################################
-
 [name="snemo_foil_20_pad_5.model" type="geomtools::simple_shaped_model"]
 shape_type         : string  = "box"
 length_unit        : string  = "cm"
@@ -1232,7 +928,6 @@ visibility.hidden  : boolean = 0
 visibility.color   : string  = "magenta"
 
 ##########################################################################
-
 [name="snemo_foil_20_pad_4.model" type="geomtools::simple_shaped_model"]
 shape_type         : string  = "box"
 length_unit        : string  = "cm"
@@ -1244,7 +939,6 @@ visibility.hidden  : boolean = 0
 visibility.color   : string  = "magenta"
 
 ##########################################################################
-
 [name="snemo_foil_20_pad_3.model" type="geomtools::simple_shaped_model"]
 shape_type         : string  = "box"
 length_unit        : string  = "cm"
@@ -1256,7 +950,6 @@ visibility.hidden  : boolean = 0
 visibility.color   : string  = "magenta"
 
 ##########################################################################
-
 [name="snemo_foil_20_pad_2.model" type="geomtools::simple_shaped_model"]
 shape_type         : string  = "box"
 length_unit        : string  = "cm"
@@ -1268,7 +961,6 @@ visibility.hidden  : boolean = 0
 visibility.color   : string  = "magenta"
 
 ##########################################################################
-
 [name="snemo_foil_20_pad_1.model" type="geomtools::simple_shaped_model"]
 shape_type         : string  = "box"
 length_unit        : string  = "cm"
@@ -1280,7 +972,6 @@ visibility.hidden  : boolean = 0
 visibility.color   : string  = "magenta"
 
 ##########################################################################
-
 [name="snemo_foil_20_pad_0.model" type="geomtools::simple_shaped_model"]
 shape_type         : string  = "box"
 length_unit        : string  = "cm"
@@ -1296,46 +987,32 @@ visibility.color   : string  = "magenta"
 material.ref            : string = "tracking_gas"
 stacked.axis            : string = "z"
 stacked.number_of_items : integer = 8
-
 stacked.model_7   : string  = "snemo_foil_20_pad_7.model"
-stacked.limit_max_7 : real as length =16.974999999999998 cm
+stacked.limit_max_7 : real as length = 16.975 cm
 stacked.label_7   : string  = "snemo_pad_20_7"
-
 stacked.model_6   : string  = "snemo_foil_20_pad_6.model"
-stacked.limit_max_6 : real as length =16.974999999999998 cm
+stacked.limit_max_6 : real as length = 16.975 cm
 stacked.label_6   : string  = "snemo_pad_20_6"
-
 stacked.model_5   : string  = "snemo_foil_20_pad_5.model"
-stacked.limit_max_5 : real as length =16.974999999999998 cm
+stacked.limit_max_5 : real as length = 16.975 cm
 stacked.label_5   : string  = "snemo_pad_20_5"
-
 stacked.model_4   : string  = "snemo_foil_20_pad_4.model"
-stacked.limit_max_4 : real as length =16.974999999999998 cm
+stacked.limit_max_4 : real as length = 16.975 cm
 stacked.label_4   : string  = "snemo_pad_20_4"
-
 stacked.model_3   : string  = "snemo_foil_20_pad_3.model"
-stacked.limit_max_3 : real as length =16.974999999999998 cm
+stacked.limit_max_3 : real as length = 16.975 cm
 stacked.label_3   : string  = "snemo_pad_20_3"
-
 stacked.model_2   : string  = "snemo_foil_20_pad_2.model"
-stacked.limit_max_2 : real as length =16.974999999999998 cm
+stacked.limit_max_2 : real as length = 16.975 cm
 stacked.label_2   : string  = "snemo_pad_20_2"
-
 stacked.model_1   : string  = "snemo_foil_20_pad_1.model"
-stacked.limit_max_1 : real as length =16.974999999999998 cm
+stacked.limit_max_1 : real as length = 16.975 cm
 stacked.label_1   : string  = "snemo_pad_20_1"
-
 stacked.model_0   : string  = "snemo_foil_20_pad_0.model"
-stacked.limit_max_0 : real as length =16.974999999999998 cm
+stacked.limit_max_0 : real as length = 16.975 cm
 stacked.label_0   : string  = "snemo_pad_20_0"
-
-
-
 visibility.hidden  : boolean = 0
-
 # Mapping the source foil from its parent category :
-
-
 mapping.daughter_id.snemo_pad_20_0 : string = "[source_pad:pad=0]"
 mapping.daughter_id.snemo_pad_20_1 : string = "[source_pad:pad=1]"
 mapping.daughter_id.snemo_pad_20_2 : string = "[source_pad:pad=2]"
@@ -1347,29 +1024,21 @@ mapping.daughter_id.snemo_pad_20_7 : string = "[source_pad:pad=7]"
     
 #########################################################################
 [name="snemo_strip_20.model" type="geomtools::stacked_model"]
-
 stacked.axis            : string = "x"
 stacked.number_of_items : integer = 3
-
 stacked.model_0   : string = "source_film.realistic.model"
 stacked.label_0   : string = "back_film"
-
 stacked.model_1   : string = "snemo_source_20.model"
 stacked.label_1   : string = "source"
-
 stacked.model_2   : string = "source_film.realistic.model"
 stacked.label_2   : string = "front_film"
-
 material.ref      : string = "tracking_gas"
-
 visibility.color  : string = "green"
-
 # Mapping the daughter volumes :
 mapping.daughter_id.back_film  : string = "[source_strip_film:film=0]"
 mapping.daughter_id.front_film : string = "[source_strip_film:film=1]"
 
 ##########################################################################
-
 [name="snemo_foil_21_pad_7.model" type="geomtools::simple_shaped_model"]
 shape_type         : string  = "box"
 length_unit        : string  = "cm"
@@ -1381,7 +1050,6 @@ visibility.hidden  : boolean = 0
 visibility.color   : string  = "magenta"
 
 ##########################################################################
-
 [name="snemo_foil_21_pad_6.model" type="geomtools::simple_shaped_model"]
 shape_type         : string  = "box"
 length_unit        : string  = "cm"
@@ -1393,7 +1061,6 @@ visibility.hidden  : boolean = 0
 visibility.color   : string  = "magenta"
 
 ##########################################################################
-
 [name="snemo_foil_21_pad_5.model" type="geomtools::simple_shaped_model"]
 shape_type         : string  = "box"
 length_unit        : string  = "cm"
@@ -1405,7 +1072,6 @@ visibility.hidden  : boolean = 0
 visibility.color   : string  = "magenta"
 
 ##########################################################################
-
 [name="snemo_foil_21_pad_4.model" type="geomtools::simple_shaped_model"]
 shape_type         : string  = "box"
 length_unit        : string  = "cm"
@@ -1417,7 +1083,6 @@ visibility.hidden  : boolean = 0
 visibility.color   : string  = "magenta"
 
 ##########################################################################
-
 [name="snemo_foil_21_pad_3.model" type="geomtools::simple_shaped_model"]
 shape_type         : string  = "box"
 length_unit        : string  = "cm"
@@ -1429,7 +1094,6 @@ visibility.hidden  : boolean = 0
 visibility.color   : string  = "magenta"
 
 ##########################################################################
-
 [name="snemo_foil_21_pad_2.model" type="geomtools::simple_shaped_model"]
 shape_type         : string  = "box"
 length_unit        : string  = "cm"
@@ -1441,7 +1105,6 @@ visibility.hidden  : boolean = 0
 visibility.color   : string  = "magenta"
 
 ##########################################################################
-
 [name="snemo_foil_21_pad_1.model" type="geomtools::simple_shaped_model"]
 shape_type         : string  = "box"
 length_unit        : string  = "cm"
@@ -1453,7 +1116,6 @@ visibility.hidden  : boolean = 0
 visibility.color   : string  = "magenta"
 
 ##########################################################################
-
 [name="snemo_foil_21_pad_0.model" type="geomtools::simple_shaped_model"]
 shape_type         : string  = "box"
 length_unit        : string  = "cm"
@@ -1469,45 +1131,32 @@ visibility.color   : string  = "magenta"
 material.ref            : string = "tracking_gas"
 stacked.axis            : string = "z"
 stacked.number_of_items : integer = 8
-
 stacked.model_7   : string  = "snemo_foil_21_pad_7.model"
-stacked.limit_max_7 : real as length =16.974999999999998 cm
+stacked.limit_max_7 : real as length = 16.975 cm
 stacked.label_7   : string  = "snemo_pad_21_7"
-
 stacked.model_6   : string  = "snemo_foil_21_pad_6.model"
-stacked.limit_max_6 : real as length =16.974999999999998 cm
+stacked.limit_max_6 : real as length = 16.975 cm
 stacked.label_6   : string  = "snemo_pad_21_6"
-
 stacked.model_5   : string  = "snemo_foil_21_pad_5.model"
-stacked.limit_max_5 : real as length =16.974999999999998 cm
+stacked.limit_max_5 : real as length = 16.975 cm
 stacked.label_5   : string  = "snemo_pad_21_5"
-
 stacked.model_4   : string  = "snemo_foil_21_pad_4.model"
-stacked.limit_max_4 : real as length =16.974999999999998 cm
+stacked.limit_max_4 : real as length = 16.975 cm
 stacked.label_4   : string  = "snemo_pad_21_4"
-
 stacked.model_3   : string  = "snemo_foil_21_pad_3.model"
-stacked.limit_max_3 : real as length =16.974999999999998 cm
+stacked.limit_max_3 : real as length = 16.975 cm
 stacked.label_3   : string  = "snemo_pad_21_3"
-
 stacked.model_2   : string  = "snemo_foil_21_pad_2.model"
-stacked.limit_max_2 : real as length =16.974999999999998 cm
+stacked.limit_max_2 : real as length = 16.975 cm
 stacked.label_2   : string  = "snemo_pad_21_2"
-
 stacked.model_1   : string  = "snemo_foil_21_pad_1.model"
-stacked.limit_max_1 : real as length =16.974999999999998 cm
+stacked.limit_max_1 : real as length = 16.975 cm
 stacked.label_1   : string  = "snemo_pad_21_1"
-
 stacked.model_0   : string  = "snemo_foil_21_pad_0.model"
-stacked.limit_max_0 : real as length =16.974999999999998 cm
+stacked.limit_max_0 : real as length = 16.975 cm
 stacked.label_0   : string  = "snemo_pad_21_0"
-
-
-
 visibility.hidden  : boolean = 0
-
 # Mapping the source foil from its parent category :
-
 mapping.daughter_id.snemo_pad_21_0 : string = "[source_pad:pad=0]"
 mapping.daughter_id.snemo_pad_21_1 : string = "[source_pad:pad=1]"
 mapping.daughter_id.snemo_pad_21_2 : string = "[source_pad:pad=2]"
@@ -1520,29 +1169,21 @@ mapping.daughter_id.snemo_pad_21_7 : string = "[source_pad:pad=7]"
     
 #########################################################################
 [name="snemo_strip_21.model" type="geomtools::stacked_model"]
-
 stacked.axis            : string = "x"
 stacked.number_of_items : integer = 3
-
 stacked.model_0   : string = "source_film.realistic.model"
 stacked.label_0   : string = "back_film"
-
 stacked.model_1   : string = "snemo_source_21.model"
 stacked.label_1   : string = "source"
-
 stacked.model_2   : string = "source_film.realistic.model"
 stacked.label_2   : string = "front_film"
-
 material.ref      : string = "tracking_gas"
-
 visibility.color  : string = "green"
-
 # Mapping the daughter volumes :
 mapping.daughter_id.back_film  : string = "[source_strip_film:film=0]"
 mapping.daughter_id.front_film : string = "[source_strip_film:film=1]"
 
 ##########################################################################
-
 [name="snemo_foil_22_pad_7.model" type="geomtools::simple_shaped_model"]
 shape_type         : string  = "box"
 length_unit        : string  = "cm"
@@ -1554,7 +1195,6 @@ visibility.hidden  : boolean = 0
 visibility.color   : string  = "magenta"
 
 ##########################################################################
-
 [name="snemo_foil_22_pad_6.model" type="geomtools::simple_shaped_model"]
 shape_type         : string  = "box"
 length_unit        : string  = "cm"
@@ -1566,7 +1206,6 @@ visibility.hidden  : boolean = 0
 visibility.color   : string  = "magenta"
 
 ##########################################################################
-
 [name="snemo_foil_22_pad_5.model" type="geomtools::simple_shaped_model"]
 shape_type         : string  = "box"
 length_unit        : string  = "cm"
@@ -1578,7 +1217,6 @@ visibility.hidden  : boolean = 0
 visibility.color   : string  = "magenta"
 
 ##########################################################################
-
 [name="snemo_foil_22_pad_4.model" type="geomtools::simple_shaped_model"]
 shape_type         : string  = "box"
 length_unit        : string  = "cm"
@@ -1590,7 +1228,6 @@ visibility.hidden  : boolean = 0
 visibility.color   : string  = "magenta"
 
 ##########################################################################
-
 [name="snemo_foil_22_pad_3.model" type="geomtools::simple_shaped_model"]
 shape_type         : string  = "box"
 length_unit        : string  = "cm"
@@ -1602,7 +1239,6 @@ visibility.hidden  : boolean = 0
 visibility.color   : string  = "magenta"
 
 ##########################################################################
-
 [name="snemo_foil_22_pad_2.model" type="geomtools::simple_shaped_model"]
 shape_type         : string  = "box"
 length_unit        : string  = "cm"
@@ -1614,7 +1250,6 @@ visibility.hidden  : boolean = 0
 visibility.color   : string  = "magenta"
 
 ##########################################################################
-
 [name="snemo_foil_22_pad_1.model" type="geomtools::simple_shaped_model"]
 shape_type         : string  = "box"
 length_unit        : string  = "cm"
@@ -1626,7 +1261,6 @@ visibility.hidden  : boolean = 0
 visibility.color   : string  = "magenta"
 
 ##########################################################################
-
 [name="snemo_foil_22_pad_0.model" type="geomtools::simple_shaped_model"]
 shape_type         : string  = "box"
 length_unit        : string  = "cm"
@@ -1642,46 +1276,32 @@ visibility.color   : string  = "magenta"
 material.ref            : string = "tracking_gas"
 stacked.axis            : string = "z"
 stacked.number_of_items : integer = 8
-
 stacked.model_7   : string  = "snemo_foil_22_pad_7.model"
-stacked.limit_max_7 : real as length =16.974999999999998 cm
+stacked.limit_max_7 : real as length = 16.975 cm
 stacked.label_7   : string  = "snemo_pad_22_7"
-
 stacked.model_6   : string  = "snemo_foil_22_pad_6.model"
-stacked.limit_max_6 : real as length =16.974999999999998 cm
+stacked.limit_max_6 : real as length = 16.975 cm
 stacked.label_6   : string  = "snemo_pad_22_6"
-
 stacked.model_5   : string  = "snemo_foil_22_pad_5.model"
-stacked.limit_max_5 : real as length =16.974999999999998 cm
+stacked.limit_max_5 : real as length = 16.975 cm
 stacked.label_5   : string  = "snemo_pad_22_5"
-
 stacked.model_4   : string  = "snemo_foil_22_pad_4.model"
-stacked.limit_max_4 : real as length =16.974999999999998 cm
+stacked.limit_max_4 : real as length = 16.975 cm
 stacked.label_4   : string  = "snemo_pad_22_4"
-
 stacked.model_3   : string  = "snemo_foil_22_pad_3.model"
-stacked.limit_max_3 : real as length =16.974999999999998 cm
+stacked.limit_max_3 : real as length = 16.975 cm
 stacked.label_3   : string  = "snemo_pad_22_3"
-
 stacked.model_2   : string  = "snemo_foil_22_pad_2.model"
-stacked.limit_max_2 : real as length =16.974999999999998 cm
+stacked.limit_max_2 : real as length = 16.975 cm
 stacked.label_2   : string  = "snemo_pad_22_2"
-
 stacked.model_1   : string  = "snemo_foil_22_pad_1.model"
-stacked.limit_max_1 : real as length =16.974999999999998 cm
+stacked.limit_max_1 : real as length = 16.975 cm
 stacked.label_1   : string  = "snemo_pad_22_1"
-
 stacked.model_0   : string  = "snemo_foil_22_pad_0.model"
-stacked.limit_max_0 : real as length =16.974999999999998 cm
+stacked.limit_max_0 : real as length = 16.975 cm
 stacked.label_0   : string  = "snemo_pad_22_0"
-
-
-
 visibility.hidden  : boolean = 0
-
 # Mapping the source foil from its parent category :
-
-    
 mapping.daughter_id.snemo_pad_22_0 : string = "[source_pad:pad=0]"
 mapping.daughter_id.snemo_pad_22_1 : string = "[source_pad:pad=1]"
 mapping.daughter_id.snemo_pad_22_2 : string = "[source_pad:pad=2]"
@@ -1693,23 +1313,16 @@ mapping.daughter_id.snemo_pad_22_7 : string = "[source_pad:pad=7]"
     
 #########################################################################
 [name="snemo_strip_22.model" type="geomtools::stacked_model"]
-
 stacked.axis            : string = "x"
 stacked.number_of_items : integer = 3
-
 stacked.model_0   : string = "source_film.realistic.model"
 stacked.label_0   : string = "back_film"
-
 stacked.model_1   : string = "snemo_source_22.model"
 stacked.label_1   : string = "source"
-
 stacked.model_2   : string = "source_film.realistic.model"
 stacked.label_2   : string = "front_film"
-
 material.ref      : string = "tracking_gas"
-
 visibility.color  : string = "green"
-
 # Mapping the daughter volumes :
 mapping.daughter_id.back_film  : string = "[source_strip_film:film=0]"
 mapping.daughter_id.front_film : string = "[source_strip_film:film=1]"
@@ -1727,7 +1340,6 @@ visibility.hidden  : boolean = 0
 visibility.color   : string  = "magenta"
 
 ##########################################################################
-
 [name="snemo_foil_23_pad_6.model" type="geomtools::simple_shaped_model"]
 shape_type         : string  = "box"
 length_unit        : string  = "cm"
@@ -1739,7 +1351,6 @@ visibility.hidden  : boolean = 0
 visibility.color   : string  = "magenta"
 
 ##########################################################################
-
 [name="snemo_foil_23_pad_5.model" type="geomtools::simple_shaped_model"]
 shape_type         : string  = "box"
 length_unit        : string  = "cm"
@@ -1751,7 +1362,6 @@ visibility.hidden  : boolean = 0
 visibility.color   : string  = "magenta"
 
 ##########################################################################
-
 [name="snemo_foil_23_pad_4.model" type="geomtools::simple_shaped_model"]
 shape_type         : string  = "box"
 length_unit        : string  = "cm"
@@ -1763,7 +1373,6 @@ visibility.hidden  : boolean = 0
 visibility.color   : string  = "magenta"
 
 ##########################################################################
-
 [name="snemo_foil_23_pad_3.model" type="geomtools::simple_shaped_model"]
 shape_type         : string  = "box"
 length_unit        : string  = "cm"
@@ -1775,7 +1384,6 @@ visibility.hidden  : boolean = 0
 visibility.color   : string  = "magenta"
 
 ##########################################################################
-
 [name="snemo_foil_23_pad_2.model" type="geomtools::simple_shaped_model"]
 shape_type         : string  = "box"
 length_unit        : string  = "cm"
@@ -1787,7 +1395,6 @@ visibility.hidden  : boolean = 0
 visibility.color   : string  = "magenta"
 
 ##########################################################################
-
 [name="snemo_foil_23_pad_1.model" type="geomtools::simple_shaped_model"]
 shape_type         : string  = "box"
 length_unit        : string  = "cm"
@@ -1799,7 +1406,6 @@ visibility.hidden  : boolean = 0
 visibility.color   : string  = "magenta"
 
 ##########################################################################
-
 [name="snemo_foil_23_pad_0.model" type="geomtools::simple_shaped_model"]
 shape_type         : string  = "box"
 length_unit        : string  = "cm"
@@ -1815,46 +1421,32 @@ visibility.color   : string  = "magenta"
 material.ref            : string = "tracking_gas"
 stacked.axis            : string = "z"
 stacked.number_of_items : integer = 8
-
 stacked.model_7   : string  = "snemo_foil_23_pad_7.model"
-stacked.limit_max_7 : real as length =16.974999999999998 cm
+stacked.limit_max_7 : real as length = 16.975 cm
 stacked.label_7   : string  = "snemo_pad_23_7"
-
 stacked.model_6   : string  = "snemo_foil_23_pad_6.model"
-stacked.limit_max_6 : real as length =16.974999999999998 cm
+stacked.limit_max_6 : real as length = 16.975 cm
 stacked.label_6   : string  = "snemo_pad_23_6"
-
 stacked.model_5   : string  = "snemo_foil_23_pad_5.model"
-stacked.limit_max_5 : real as length =16.974999999999998 cm
+stacked.limit_max_5 : real as length = 16.975 cm
 stacked.label_5   : string  = "snemo_pad_23_5"
-
 stacked.model_4   : string  = "snemo_foil_23_pad_4.model"
-stacked.limit_max_4 : real as length =16.974999999999998 cm
+stacked.limit_max_4 : real as length = 16.975 cm
 stacked.label_4   : string  = "snemo_pad_23_4"
-
 stacked.model_3   : string  = "snemo_foil_23_pad_3.model"
-stacked.limit_max_3 : real as length =16.974999999999998 cm
+stacked.limit_max_3 : real as length = 16.975 cm
 stacked.label_3   : string  = "snemo_pad_23_3"
-
 stacked.model_2   : string  = "snemo_foil_23_pad_2.model"
-stacked.limit_max_2 : real as length =16.974999999999998 cm
+stacked.limit_max_2 : real as length = 16.975 cm
 stacked.label_2   : string  = "snemo_pad_23_2"
-
 stacked.model_1   : string  = "snemo_foil_23_pad_1.model"
-stacked.limit_max_1 : real as length =16.974999999999998 cm
+stacked.limit_max_1 : real as length = 16.975 cm
 stacked.label_1   : string  = "snemo_pad_23_1"
-
 stacked.model_0   : string  = "snemo_foil_23_pad_0.model"
-stacked.limit_max_0 : real as length =16.974999999999998 cm
+stacked.limit_max_0 : real as length = 16.975 cm
 stacked.label_0   : string  = "snemo_pad_23_0"
-
-
-
 visibility.hidden  : boolean = 0
-
 # Mapping the source foil from its parent category :
-   
-    
 mapping.daughter_id.snemo_pad_23_0 : string = "[source_pad:pad=0]"
 mapping.daughter_id.snemo_pad_23_1 : string = "[source_pad:pad=1]"
 mapping.daughter_id.snemo_pad_23_2 : string = "[source_pad:pad=2]"
@@ -1866,29 +1458,21 @@ mapping.daughter_id.snemo_pad_23_7 : string = "[source_pad:pad=7]"
     
 #########################################################################
 [name="snemo_strip_23.model" type="geomtools::stacked_model"]
-
 stacked.axis            : string = "x"
 stacked.number_of_items : integer = 3
-
 stacked.model_0   : string = "source_film.realistic.model"
 stacked.label_0   : string = "back_film"
-
 stacked.model_1   : string = "snemo_source_23.model"
 stacked.label_1   : string = "source"
-
 stacked.model_2   : string = "source_film.realistic.model"
 stacked.label_2   : string = "front_film"
-
 material.ref      : string = "tracking_gas"
-
 visibility.color  : string = "green"
-
 # Mapping the daughter volumes :
 mapping.daughter_id.back_film  : string = "[source_strip_film:film=0]"
 mapping.daughter_id.front_film : string = "[source_strip_film:film=1]"
 
 ##########################################################################
-
 [name="snemo_foil_24_pad_7.model" type="geomtools::simple_shaped_model"]
 shape_type         : string  = "box"
 length_unit        : string  = "cm"
@@ -1900,7 +1484,6 @@ visibility.hidden  : boolean = 0
 visibility.color   : string  = "magenta"
 
 ##########################################################################
-
 [name="snemo_foil_24_pad_6.model" type="geomtools::simple_shaped_model"]
 shape_type         : string  = "box"
 length_unit        : string  = "cm"
@@ -1912,7 +1495,6 @@ visibility.hidden  : boolean = 0
 visibility.color   : string  = "magenta"
 
 ##########################################################################
-
 [name="snemo_foil_24_pad_5.model" type="geomtools::simple_shaped_model"]
 shape_type         : string  = "box"
 length_unit        : string  = "cm"
@@ -1924,7 +1506,6 @@ visibility.hidden  : boolean = 0
 visibility.color   : string  = "magenta"
 
 ##########################################################################
-
 [name="snemo_foil_24_pad_4.model" type="geomtools::simple_shaped_model"]
 shape_type         : string  = "box"
 length_unit        : string  = "cm"
@@ -1936,7 +1517,6 @@ visibility.hidden  : boolean = 0
 visibility.color   : string  = "magenta"
 
 ##########################################################################
-
 [name="snemo_foil_24_pad_3.model" type="geomtools::simple_shaped_model"]
 shape_type         : string  = "box"
 length_unit        : string  = "cm"
@@ -1948,7 +1528,6 @@ visibility.hidden  : boolean = 0
 visibility.color   : string  = "magenta"
 
 ##########################################################################
-
 [name="snemo_foil_24_pad_2.model" type="geomtools::simple_shaped_model"]
 shape_type         : string  = "box"
 length_unit        : string  = "cm"
@@ -1960,7 +1539,6 @@ visibility.hidden  : boolean = 0
 visibility.color   : string  = "magenta"
 
 ##########################################################################
-
 [name="snemo_foil_24_pad_1.model" type="geomtools::simple_shaped_model"]
 shape_type         : string  = "box"
 length_unit        : string  = "cm"
@@ -1972,7 +1550,6 @@ visibility.hidden  : boolean = 0
 visibility.color   : string  = "magenta"
 
 ##########################################################################
-
 [name="snemo_foil_24_pad_0.model" type="geomtools::simple_shaped_model"]
 shape_type         : string  = "box"
 length_unit        : string  = "cm"
@@ -1988,46 +1565,32 @@ visibility.color   : string  = "magenta"
 material.ref            : string = "tracking_gas"
 stacked.axis            : string = "z"
 stacked.number_of_items : integer = 8
-
 stacked.model_7   : string  = "snemo_foil_24_pad_7.model"
-stacked.limit_max_7 : real as length =16.974999999999998 cm
+stacked.limit_max_7 : real as length = 16.975 cm
 stacked.label_7   : string  = "snemo_pad_24_7"
-
 stacked.model_6   : string  = "snemo_foil_24_pad_6.model"
-stacked.limit_max_6 : real as length =16.974999999999998 cm
+stacked.limit_max_6 : real as length = 16.975 cm
 stacked.label_6   : string  = "snemo_pad_24_6"
-
 stacked.model_5   : string  = "snemo_foil_24_pad_5.model"
-stacked.limit_max_5 : real as length =16.974999999999998 cm
+stacked.limit_max_5 : real as length = 16.975 cm
 stacked.label_5   : string  = "snemo_pad_24_5"
-
 stacked.model_4   : string  = "snemo_foil_24_pad_4.model"
-stacked.limit_max_4 : real as length =16.974999999999998 cm
+stacked.limit_max_4 : real as length = 16.975 cm
 stacked.label_4   : string  = "snemo_pad_24_4"
-
 stacked.model_3   : string  = "snemo_foil_24_pad_3.model"
-stacked.limit_max_3 : real as length =16.974999999999998 cm
+stacked.limit_max_3 : real as length = 16.975 cm
 stacked.label_3   : string  = "snemo_pad_24_3"
-
 stacked.model_2   : string  = "snemo_foil_24_pad_2.model"
-stacked.limit_max_2 : real as length =16.974999999999998 cm
+stacked.limit_max_2 : real as length = 16.975 cm
 stacked.label_2   : string  = "snemo_pad_24_2"
-
 stacked.model_1   : string  = "snemo_foil_24_pad_1.model"
-stacked.limit_max_1 : real as length =16.974999999999998 cm
+stacked.limit_max_1 : real as length = 16.975 cm
 stacked.label_1   : string  = "snemo_pad_24_1"
-
 stacked.model_0   : string  = "snemo_foil_24_pad_0.model"
-stacked.limit_max_0 : real as length =16.974999999999998 cm
+stacked.limit_max_0 : real as length = 16.975 cm
 stacked.label_0   : string  = "snemo_pad_24_0"
-
-
-
 visibility.hidden  : boolean = 0
-
 # Mapping the source foil from its parent category :
-   
-    
 mapping.daughter_id.snemo_pad_24_0 : string = "[source_pad:pad=0]"
 mapping.daughter_id.snemo_pad_24_1 : string = "[source_pad:pad=1]"
 mapping.daughter_id.snemo_pad_24_2 : string = "[source_pad:pad=2]"
@@ -2039,29 +1602,21 @@ mapping.daughter_id.snemo_pad_24_7 : string = "[source_pad:pad=7]"
     
 #########################################################################
 [name="snemo_strip_24.model" type="geomtools::stacked_model"]
-
 stacked.axis            : string = "x"
 stacked.number_of_items : integer = 3
-
 stacked.model_0   : string = "source_film.realistic.model"
 stacked.label_0   : string = "back_film"
-
 stacked.model_1   : string = "snemo_source_24.model"
 stacked.label_1   : string = "source"
-
 stacked.model_2   : string = "source_film.realistic.model"
 stacked.label_2   : string = "front_film"
-
 material.ref      : string = "tracking_gas"
-
 visibility.color  : string = "green"
-
 # Mapping the daughter volumes :
 mapping.daughter_id.back_film  : string = "[source_strip_film:film=0]"
 mapping.daughter_id.front_film : string = "[source_strip_film:film=1]"
 
 ##########################################################################
-
 [name="snemo_foil_25_pad_7.model" type="geomtools::simple_shaped_model"]
 shape_type         : string  = "box"
 length_unit        : string  = "cm"
@@ -2073,7 +1628,6 @@ visibility.hidden  : boolean = 0
 visibility.color   : string  = "magenta"
 
 ##########################################################################
-
 [name="snemo_foil_25_pad_6.model" type="geomtools::simple_shaped_model"]
 shape_type         : string  = "box"
 length_unit        : string  = "cm"
@@ -2085,7 +1639,6 @@ visibility.hidden  : boolean = 0
 visibility.color   : string  = "magenta"
 
 ##########################################################################
-
 [name="snemo_foil_25_pad_5.model" type="geomtools::simple_shaped_model"]
 shape_type         : string  = "box"
 length_unit        : string  = "cm"
@@ -2097,7 +1650,6 @@ visibility.hidden  : boolean = 0
 visibility.color   : string  = "magenta"
 
 ##########################################################################
-
 [name="snemo_foil_25_pad_4.model" type="geomtools::simple_shaped_model"]
 shape_type         : string  = "box"
 length_unit        : string  = "cm"
@@ -2109,7 +1661,6 @@ visibility.hidden  : boolean = 0
 visibility.color   : string  = "magenta"
 
 ##########################################################################
-
 [name="snemo_foil_25_pad_3.model" type="geomtools::simple_shaped_model"]
 shape_type         : string  = "box"
 length_unit        : string  = "cm"
@@ -2121,7 +1672,6 @@ visibility.hidden  : boolean = 0
 visibility.color   : string  = "magenta"
 
 ##########################################################################
-
 [name="snemo_foil_25_pad_2.model" type="geomtools::simple_shaped_model"]
 shape_type         : string  = "box"
 length_unit        : string  = "cm"
@@ -2133,7 +1683,6 @@ visibility.hidden  : boolean = 0
 visibility.color   : string  = "magenta"
 
 ##########################################################################
-
 [name="snemo_foil_25_pad_1.model" type="geomtools::simple_shaped_model"]
 shape_type         : string  = "box"
 length_unit        : string  = "cm"
@@ -2145,7 +1694,6 @@ visibility.hidden  : boolean = 0
 visibility.color   : string  = "magenta"
 
 ##########################################################################
-
 [name="snemo_foil_25_pad_0.model" type="geomtools::simple_shaped_model"]
 shape_type         : string  = "box"
 length_unit        : string  = "cm"
@@ -2161,45 +1709,32 @@ visibility.color   : string  = "magenta"
 material.ref            : string = "tracking_gas"
 stacked.axis            : string = "z"
 stacked.number_of_items : integer = 8
-
 stacked.model_7   : string  = "snemo_foil_25_pad_7.model"
-stacked.limit_max_7 : real as length =16.9 cm
+stacked.limit_max_7 : real as length = 16.9 cm
 stacked.label_7   : string  = "snemo_pad_25_7"
-
 stacked.model_6   : string  = "snemo_foil_25_pad_6.model"
-stacked.limit_max_6 : real as length =16.974999999999998 cm
+stacked.limit_max_6 : real as length = 16.975 cm
 stacked.label_6   : string  = "snemo_pad_25_6"
-
 stacked.model_5   : string  = "snemo_foil_25_pad_5.model"
-stacked.limit_max_5 : real as length =16.974999999999998 cm
+stacked.limit_max_5 : real as length = 16.975 cm
 stacked.label_5   : string  = "snemo_pad_25_5"
-
 stacked.model_4   : string  = "snemo_foil_25_pad_4.model"
-stacked.limit_max_4 : real as length =16.974999999999998 cm
+stacked.limit_max_4 : real as length = 16.975 cm
 stacked.label_4   : string  = "snemo_pad_25_4"
-
 stacked.model_3   : string  = "snemo_foil_25_pad_3.model"
-stacked.limit_max_3 : real as length =16.974999999999998 cm
+stacked.limit_max_3 : real as length = 16.975 cm
 stacked.label_3   : string  = "snemo_pad_25_3"
-
 stacked.model_2   : string  = "snemo_foil_25_pad_2.model"
-stacked.limit_max_2 : real as length =16.974999999999998 cm
+stacked.limit_max_2 : real as length = 16.975 cm
 stacked.label_2   : string  = "snemo_pad_25_2"
-
 stacked.model_1   : string  = "snemo_foil_25_pad_1.model"
-stacked.limit_max_1 : real as length =16.974999999999998 cm
+stacked.limit_max_1 : real as length = 16.975 cm
 stacked.label_1   : string  = "snemo_pad_25_1"
-
 stacked.model_0   : string  = "snemo_foil_25_pad_0.model"
-stacked.limit_max_0 : real as length =16.974999999999998 cm
+stacked.limit_max_0 : real as length = 16.975 cm
 stacked.label_0   : string  = "snemo_pad_25_0"
-
-
-
 visibility.hidden  : boolean = 0
-
 # Mapping the source foil from its parent category :
-
 mapping.daughter_id.snemo_pad_25_0 : string = "[source_pad:pad=0]"
 mapping.daughter_id.snemo_pad_25_1 : string = "[source_pad:pad=1]"
 mapping.daughter_id.snemo_pad_25_2 : string = "[source_pad:pad=2]"
@@ -2211,29 +1746,21 @@ mapping.daughter_id.snemo_pad_25_7 : string = "[source_pad:pad=7]"
     
 #########################################################################
 [name="snemo_strip_25.model" type="geomtools::stacked_model"]
-
 stacked.axis            : string = "x"
 stacked.number_of_items : integer = 3
-
 stacked.model_0   : string = "source_film.realistic.model"
 stacked.label_0   : string = "back_film"
-
 stacked.model_1   : string = "snemo_source_25.model"
 stacked.label_1   : string = "source"
-
 stacked.model_2   : string = "source_film.realistic.model"
 stacked.label_2   : string = "front_film"
-
 material.ref      : string = "tracking_gas"
-
 visibility.color  : string = "green"
-
 # Mapping the daughter volumes :
 mapping.daughter_id.back_film  : string = "[source_strip_film:film=0]"
 mapping.daughter_id.front_film : string = "[source_strip_film:film=1]"
 
 ##########################################################################
-
 [name="snemo_foil_26_pad_7.model" type="geomtools::simple_shaped_model"]
 shape_type         : string  = "box"
 length_unit        : string  = "cm"
@@ -2245,7 +1772,6 @@ visibility.hidden  : boolean = 0
 visibility.color   : string  = "magenta"
 
 ##########################################################################
-
 [name="snemo_foil_26_pad_6.model" type="geomtools::simple_shaped_model"]
 shape_type         : string  = "box"
 length_unit        : string  = "cm"
@@ -2257,7 +1783,6 @@ visibility.hidden  : boolean = 0
 visibility.color   : string  = "magenta"
 
 ##########################################################################
-
 [name="snemo_foil_26_pad_5.model" type="geomtools::simple_shaped_model"]
 shape_type         : string  = "box"
 length_unit        : string  = "cm"
@@ -2269,7 +1794,6 @@ visibility.hidden  : boolean = 0
 visibility.color   : string  = "magenta"
 
 ##########################################################################
-
 [name="snemo_foil_26_pad_4.model" type="geomtools::simple_shaped_model"]
 shape_type         : string  = "box"
 length_unit        : string  = "cm"
@@ -2281,7 +1805,6 @@ visibility.hidden  : boolean = 0
 visibility.color   : string  = "magenta"
 
 ##########################################################################
-
 [name="snemo_foil_26_pad_3.model" type="geomtools::simple_shaped_model"]
 shape_type         : string  = "box"
 length_unit        : string  = "cm"
@@ -2293,7 +1816,6 @@ visibility.hidden  : boolean = 0
 visibility.color   : string  = "magenta"
 
 ##########################################################################
-
 [name="snemo_foil_26_pad_2.model" type="geomtools::simple_shaped_model"]
 shape_type         : string  = "box"
 length_unit        : string  = "cm"
@@ -2305,7 +1827,6 @@ visibility.hidden  : boolean = 0
 visibility.color   : string  = "magenta"
 
 ##########################################################################
-
 [name="snemo_foil_26_pad_1.model" type="geomtools::simple_shaped_model"]
 shape_type         : string  = "box"
 length_unit        : string  = "cm"
@@ -2317,7 +1838,6 @@ visibility.hidden  : boolean = 0
 visibility.color   : string  = "magenta"
 
 ##########################################################################
-
 [name="snemo_foil_26_pad_0.model" type="geomtools::simple_shaped_model"]
 shape_type         : string  = "box"
 length_unit        : string  = "cm"
@@ -2333,45 +1853,32 @@ visibility.color   : string  = "magenta"
 material.ref            : string = "tracking_gas"
 stacked.axis            : string = "z"
 stacked.number_of_items : integer = 8
-
 stacked.model_7   : string  = "snemo_foil_26_pad_7.model"
-stacked.limit_max_7 : real as length =16.9 cm
+stacked.limit_max_7 : real as length = 16.9 cm
 stacked.label_7   : string  = "snemo_pad_26_7"
-
 stacked.model_6   : string  = "snemo_foil_26_pad_6.model"
-stacked.limit_max_6 : real as length =16.9 cm
+stacked.limit_max_6 : real as length = 16.9 cm
 stacked.label_6   : string  = "snemo_pad_26_6"
-
 stacked.model_5   : string  = "snemo_foil_26_pad_5.model"
-stacked.limit_max_5 : real as length =16.9 cm
+stacked.limit_max_5 : real as length = 16.9 cm
 stacked.label_5   : string  = "snemo_pad_26_5"
-
 stacked.model_4   : string  = "snemo_foil_26_pad_4.model"
-stacked.limit_max_4 : real as length =16.9 cm
+stacked.limit_max_4 : real as length = 16.9 cm
 stacked.label_4   : string  = "snemo_pad_26_4"
-
 stacked.model_3   : string  = "snemo_foil_26_pad_3.model"
-stacked.limit_max_3 : real as length =16.9 cm
+stacked.limit_max_3 : real as length = 16.9 cm
 stacked.label_3   : string  = "snemo_pad_26_3"
-
 stacked.model_2   : string  = "snemo_foil_26_pad_2.model"
-stacked.limit_max_2 : real as length =16.9 cm
+stacked.limit_max_2 : real as length = 16.9 cm
 stacked.label_2   : string  = "snemo_pad_26_2"
-
 stacked.model_1   : string  = "snemo_foil_26_pad_1.model"
-stacked.limit_max_1 : real as length =16.9 cm
+stacked.limit_max_1 : real as length = 16.9 cm
 stacked.label_1   : string  = "snemo_pad_26_1"
-
 stacked.model_0   : string  = "snemo_foil_26_pad_0.model"
-stacked.limit_max_0 : real as length =16.9 cm
+stacked.limit_max_0 : real as length = 16.9 cm
 stacked.label_0   : string  = "snemo_pad_26_0"
-
-
-
 visibility.hidden  : boolean = 0
-
 # Mapping the source foil from its parent category :
-
 mapping.daughter_id.snemo_pad_26_0 : string = "[source_pad:pad=0]"
 mapping.daughter_id.snemo_pad_26_1 : string = "[source_pad:pad=1]"
 mapping.daughter_id.snemo_pad_26_2 : string = "[source_pad:pad=2]"
@@ -2381,34 +1888,23 @@ mapping.daughter_id.snemo_pad_26_5 : string = "[source_pad:pad=5]"
 mapping.daughter_id.snemo_pad_26_6 : string = "[source_pad:pad=6]"
 mapping.daughter_id.snemo_pad_26_7 : string = "[source_pad:pad=7]"
 
-
-
-    
 #########################################################################
 [name="snemo_strip_26.model" type="geomtools::stacked_model"]
-
 stacked.axis            : string = "x"
 stacked.number_of_items : integer = 3
-
 stacked.model_0   : string = "source_film.realistic.model"
 stacked.label_0   : string = "back_film"
-
 stacked.model_1   : string = "snemo_source_26.model"
 stacked.label_1   : string = "source"
-
 stacked.model_2   : string = "source_film.realistic.model"
 stacked.label_2   : string = "front_film"
-
 material.ref      : string = "tracking_gas"
-
 visibility.color  : string = "green"
-
 # Mapping the daughter volumes :
 mapping.daughter_id.back_film  : string = "[source_strip_film:film=0]"
 mapping.daughter_id.front_film : string = "[source_strip_film:film=1]"
 
 ##########################################################################
-
 [name="snemo_foil_27_pad_7.model" type="geomtools::simple_shaped_model"]
 shape_type         : string  = "box"
 length_unit        : string  = "cm"
@@ -2420,7 +1916,6 @@ visibility.hidden  : boolean = 0
 visibility.color   : string  = "magenta"
 
 ##########################################################################
-
 [name="snemo_foil_27_pad_6.model" type="geomtools::simple_shaped_model"]
 shape_type         : string  = "box"
 length_unit        : string  = "cm"
@@ -2432,7 +1927,6 @@ visibility.hidden  : boolean = 0
 visibility.color   : string  = "magenta"
 
 ##########################################################################
-
 [name="snemo_foil_27_pad_5.model" type="geomtools::simple_shaped_model"]
 shape_type         : string  = "box"
 length_unit        : string  = "cm"
@@ -2444,7 +1938,6 @@ visibility.hidden  : boolean = 0
 visibility.color   : string  = "magenta"
 
 ##########################################################################
-
 [name="snemo_foil_27_pad_4.model" type="geomtools::simple_shaped_model"]
 shape_type         : string  = "box"
 length_unit        : string  = "cm"
@@ -2456,7 +1949,6 @@ visibility.hidden  : boolean = 0
 visibility.color   : string  = "magenta"
 
 ##########################################################################
-
 [name="snemo_foil_27_pad_3.model" type="geomtools::simple_shaped_model"]
 shape_type         : string  = "box"
 length_unit        : string  = "cm"
@@ -2468,7 +1960,6 @@ visibility.hidden  : boolean = 0
 visibility.color   : string  = "magenta"
 
 ##########################################################################
-
 [name="snemo_foil_27_pad_2.model" type="geomtools::simple_shaped_model"]
 shape_type         : string  = "box"
 length_unit        : string  = "cm"
@@ -2480,7 +1971,6 @@ visibility.hidden  : boolean = 0
 visibility.color   : string  = "magenta"
 
 ##########################################################################
-
 [name="snemo_foil_27_pad_1.model" type="geomtools::simple_shaped_model"]
 shape_type         : string  = "box"
 length_unit        : string  = "cm"
@@ -2492,7 +1982,6 @@ visibility.hidden  : boolean = 0
 visibility.color   : string  = "magenta"
 
 ##########################################################################
-
 [name="snemo_foil_27_pad_0.model" type="geomtools::simple_shaped_model"]
 shape_type         : string  = "box"
 length_unit        : string  = "cm"
@@ -2508,45 +1997,32 @@ visibility.color   : string  = "magenta"
 material.ref            : string = "tracking_gas"
 stacked.axis            : string = "z"
 stacked.number_of_items : integer = 8
-
 stacked.model_7   : string  = "snemo_foil_27_pad_7.model"
-stacked.limit_max_7 : real as length =16.9 cm
+stacked.limit_max_7 : real as length = 16.9 cm
 stacked.label_7   : string  = "snemo_pad_27_7"
-
 stacked.model_6   : string  = "snemo_foil_27_pad_6.model"
-stacked.limit_max_6 : real as length =16.9 cm
+stacked.limit_max_6 : real as length = 16.9 cm
 stacked.label_6   : string  = "snemo_pad_27_6"
-
 stacked.model_5   : string  = "snemo_foil_27_pad_5.model"
-stacked.limit_max_5 : real as length =16.9 cm
+stacked.limit_max_5 : real as length = 16.9 cm
 stacked.label_5   : string  = "snemo_pad_27_5"
-
 stacked.model_4   : string  = "snemo_foil_27_pad_4.model"
-stacked.limit_max_4 : real as length =16.9 cm
+stacked.limit_max_4 : real as length = 16.9 cm
 stacked.label_4   : string  = "snemo_pad_27_4"
-
 stacked.model_3   : string  = "snemo_foil_27_pad_3.model"
-stacked.limit_max_3 : real as length =16.9 cm
+stacked.limit_max_3 : real as length = 16.9 cm
 stacked.label_3   : string  = "snemo_pad_27_3"
-
 stacked.model_2   : string  = "snemo_foil_27_pad_2.model"
-stacked.limit_max_2 : real as length =16.9 cm
+stacked.limit_max_2 : real as length = 16.9 cm
 stacked.label_2   : string  = "snemo_pad_27_2"
-
 stacked.model_1   : string  = "snemo_foil_27_pad_1.model"
-stacked.limit_max_1 : real as length =16.9 cm
+stacked.limit_max_1 : real as length = 16.9 cm
 stacked.label_1   : string  = "snemo_pad_27_1"
-
 stacked.model_0   : string  = "snemo_foil_27_pad_0.model"
-stacked.limit_max_0 : real as length =16.9 cm
+stacked.limit_max_0 : real as length = 16.9 cm
 stacked.label_0   : string  = "snemo_pad_27_0"
-
-
-
 visibility.hidden  : boolean = 0
-
 # Mapping the source foil from its parent category :
-
 mapping.daughter_id.snemo_pad_27_0 : string = "[source_pad:pad=0]"
 mapping.daughter_id.snemo_pad_27_1 : string = "[source_pad:pad=1]"
 mapping.daughter_id.snemo_pad_27_2 : string = "[source_pad:pad=2]"
@@ -2556,33 +2032,23 @@ mapping.daughter_id.snemo_pad_27_5 : string = "[source_pad:pad=5]"
 mapping.daughter_id.snemo_pad_27_6 : string = "[source_pad:pad=6]"
 mapping.daughter_id.snemo_pad_27_7 : string = "[source_pad:pad=7]"
 
-
-    
 #########################################################################
 [name="snemo_strip_27.model" type="geomtools::stacked_model"]
-
 stacked.axis            : string = "x"
 stacked.number_of_items : integer = 3
-
 stacked.model_0   : string = "source_film.realistic.model"
 stacked.label_0   : string = "back_film"
-
 stacked.model_1   : string = "snemo_source_27.model"
 stacked.label_1   : string = "source"
-
 stacked.model_2   : string = "source_film.realistic.model"
 stacked.label_2   : string = "front_film"
-
 material.ref      : string = "tracking_gas"
-
 visibility.color  : string = "green"
-
 # Mapping the daughter volumes :
 mapping.daughter_id.back_film  : string = "[source_strip_film:film=0]"
 mapping.daughter_id.front_film : string = "[source_strip_film:film=1]"
 
 ##########################################################################
-
 [name="snemo_foil_28_pad_7.model" type="geomtools::simple_shaped_model"]
 shape_type         : string  = "box"
 length_unit        : string  = "cm"
@@ -2594,7 +2060,6 @@ visibility.hidden  : boolean = 0
 visibility.color   : string  = "magenta"
 
 ##########################################################################
-
 [name="snemo_foil_28_pad_6.model" type="geomtools::simple_shaped_model"]
 shape_type         : string  = "box"
 length_unit        : string  = "cm"
@@ -2606,7 +2071,6 @@ visibility.hidden  : boolean = 0
 visibility.color   : string  = "magenta"
 
 ##########################################################################
-
 [name="snemo_foil_28_pad_5.model" type="geomtools::simple_shaped_model"]
 shape_type         : string  = "box"
 length_unit        : string  = "cm"
@@ -2618,7 +2082,6 @@ visibility.hidden  : boolean = 0
 visibility.color   : string  = "magenta"
 
 ##########################################################################
-
 [name="snemo_foil_28_pad_4.model" type="geomtools::simple_shaped_model"]
 shape_type         : string  = "box"
 length_unit        : string  = "cm"
@@ -2630,7 +2093,6 @@ visibility.hidden  : boolean = 0
 visibility.color   : string  = "magenta"
 
 ##########################################################################
-
 [name="snemo_foil_28_pad_3.model" type="geomtools::simple_shaped_model"]
 shape_type         : string  = "box"
 length_unit        : string  = "cm"
@@ -2642,7 +2104,6 @@ visibility.hidden  : boolean = 0
 visibility.color   : string  = "magenta"
 
 ##########################################################################
-
 [name="snemo_foil_28_pad_2.model" type="geomtools::simple_shaped_model"]
 shape_type         : string  = "box"
 length_unit        : string  = "cm"
@@ -2654,7 +2115,6 @@ visibility.hidden  : boolean = 0
 visibility.color   : string  = "magenta"
 
 ##########################################################################
-
 [name="snemo_foil_28_pad_1.model" type="geomtools::simple_shaped_model"]
 shape_type         : string  = "box"
 length_unit        : string  = "cm"
@@ -2666,7 +2126,6 @@ visibility.hidden  : boolean = 0
 visibility.color   : string  = "magenta"
 
 ##########################################################################
-
 [name="snemo_foil_28_pad_0.model" type="geomtools::simple_shaped_model"]
 shape_type         : string  = "box"
 length_unit        : string  = "cm"
@@ -2682,45 +2141,32 @@ visibility.color   : string  = "magenta"
 material.ref            : string = "tracking_gas"
 stacked.axis            : string = "z"
 stacked.number_of_items : integer = 8
-
 stacked.model_7   : string  = "snemo_foil_28_pad_7.model"
-stacked.limit_max_7 : real as length =16.95 cm
+stacked.limit_max_7 : real as length = 16.95 cm
 stacked.label_7   : string  = "snemo_pad_28_7"
-
 stacked.model_6   : string  = "snemo_foil_28_pad_6.model"
-stacked.limit_max_6 : real as length =16.95 cm
+stacked.limit_max_6 : real as length = 16.95 cm
 stacked.label_6   : string  = "snemo_pad_28_6"
-
 stacked.model_5   : string  = "snemo_foil_28_pad_5.model"
-stacked.limit_max_5 : real as length =16.95 cm
+stacked.limit_max_5 : real as length = 16.95 cm
 stacked.label_5   : string  = "snemo_pad_28_5"
-
 stacked.model_4   : string  = "snemo_foil_28_pad_4.model"
-stacked.limit_max_4 : real as length =16.95 cm
+stacked.limit_max_4 : real as length = 16.95 cm
 stacked.label_4   : string  = "snemo_pad_28_4"
-
 stacked.model_3   : string  = "snemo_foil_28_pad_3.model"
-stacked.limit_max_3 : real as length =16.95 cm
+stacked.limit_max_3 : real as length = 16.95 cm
 stacked.label_3   : string  = "snemo_pad_28_3"
-
 stacked.model_2   : string  = "snemo_foil_28_pad_2.model"
-stacked.limit_max_2 : real as length =16.95 cm
+stacked.limit_max_2 : real as length = 16.95 cm
 stacked.label_2   : string  = "snemo_pad_28_2"
-
 stacked.model_1   : string  = "snemo_foil_28_pad_1.model"
-stacked.limit_max_1 : real as length =16.95 cm
+stacked.limit_max_1 : real as length = 16.95 cm
 stacked.label_1   : string  = "snemo_pad_28_1"
-
 stacked.model_0   : string  = "snemo_foil_28_pad_0.model"
-stacked.limit_max_0 : real as length =16.9 cm
+stacked.limit_max_0 : real as length = 16.9 cm
 stacked.label_0   : string  = "snemo_pad_28_0"
-
-
-
 visibility.hidden  : boolean = 0
-
 # Mapping the source foil from its parent category :
-
 mapping.daughter_id.snemo_pad_28_0 : string = "[source_pad:pad=0]"
 mapping.daughter_id.snemo_pad_28_1 : string = "[source_pad:pad=1]"
 mapping.daughter_id.snemo_pad_28_2 : string = "[source_pad:pad=2]"
@@ -2730,33 +2176,23 @@ mapping.daughter_id.snemo_pad_28_5 : string = "[source_pad:pad=5]"
 mapping.daughter_id.snemo_pad_28_6 : string = "[source_pad:pad=6]"
 mapping.daughter_id.snemo_pad_28_7 : string = "[source_pad:pad=7]"
 
-
-    
 #########################################################################
 [name="snemo_strip_28.model" type="geomtools::stacked_model"]
-
 stacked.axis            : string = "x"
 stacked.number_of_items : integer = 3
-
 stacked.model_0   : string = "source_film.realistic.model"
 stacked.label_0   : string = "back_film"
-
 stacked.model_1   : string = "snemo_source_28.model"
 stacked.label_1   : string = "source"
-
 stacked.model_2   : string = "source_film.realistic.model"
 stacked.label_2   : string = "front_film"
-
 material.ref      : string = "tracking_gas"
-
 visibility.color  : string = "green"
-
 # Mapping the daughter volumes :
 mapping.daughter_id.back_film  : string = "[source_strip_film:film=0]"
 mapping.daughter_id.front_film : string = "[source_strip_film:film=1]"
 
 ##########################################################################
-
 [name="snemo_foil_29_pad_7.model" type="geomtools::simple_shaped_model"]
 shape_type         : string  = "box"
 length_unit        : string  = "cm"
@@ -2768,7 +2204,6 @@ visibility.hidden  : boolean = 0
 visibility.color   : string  = "magenta"
 
 ##########################################################################
-
 [name="snemo_foil_29_pad_6.model" type="geomtools::simple_shaped_model"]
 shape_type         : string  = "box"
 length_unit        : string  = "cm"
@@ -2780,7 +2215,6 @@ visibility.hidden  : boolean = 0
 visibility.color   : string  = "magenta"
 
 ##########################################################################
-
 [name="snemo_foil_29_pad_5.model" type="geomtools::simple_shaped_model"]
 shape_type         : string  = "box"
 length_unit        : string  = "cm"
@@ -2792,7 +2226,6 @@ visibility.hidden  : boolean = 0
 visibility.color   : string  = "magenta"
 
 ##########################################################################
-
 [name="snemo_foil_29_pad_4.model" type="geomtools::simple_shaped_model"]
 shape_type         : string  = "box"
 length_unit        : string  = "cm"
@@ -2804,7 +2237,6 @@ visibility.hidden  : boolean = 0
 visibility.color   : string  = "magenta"
 
 ##########################################################################
-
 [name="snemo_foil_29_pad_3.model" type="geomtools::simple_shaped_model"]
 shape_type         : string  = "box"
 length_unit        : string  = "cm"
@@ -2816,7 +2248,6 @@ visibility.hidden  : boolean = 0
 visibility.color   : string  = "magenta"
 
 ##########################################################################
-
 [name="snemo_foil_29_pad_2.model" type="geomtools::simple_shaped_model"]
 shape_type         : string  = "box"
 length_unit        : string  = "cm"
@@ -2828,7 +2259,6 @@ visibility.hidden  : boolean = 0
 visibility.color   : string  = "magenta"
 
 ##########################################################################
-
 [name="snemo_foil_29_pad_1.model" type="geomtools::simple_shaped_model"]
 shape_type         : string  = "box"
 length_unit        : string  = "cm"
@@ -2840,7 +2270,6 @@ visibility.hidden  : boolean = 0
 visibility.color   : string  = "magenta"
 
 ##########################################################################
-
 [name="snemo_foil_29_pad_0.model" type="geomtools::simple_shaped_model"]
 shape_type         : string  = "box"
 length_unit        : string  = "cm"
@@ -2856,45 +2285,32 @@ visibility.color   : string  = "magenta"
 material.ref            : string = "tracking_gas"
 stacked.axis            : string = "z"
 stacked.number_of_items : integer = 8
-
 stacked.model_7   : string  = "snemo_foil_29_pad_7.model"
-stacked.limit_max_7 : real as length =16.9 cm
+stacked.limit_max_7 : real as length = 16.9 cm
 stacked.label_7   : string  = "snemo_pad_29_7"
-
 stacked.model_6   : string  = "snemo_foil_29_pad_6.model"
-stacked.limit_max_6 : real as length =16.9 cm
+stacked.limit_max_6 : real as length = 16.9 cm
 stacked.label_6   : string  = "snemo_pad_29_6"
-
 stacked.model_5   : string  = "snemo_foil_29_pad_5.model"
-stacked.limit_max_5 : real as length =16.875 cm
+stacked.limit_max_5 : real as length = 16.875 cm
 stacked.label_5   : string  = "snemo_pad_29_5"
-
 stacked.model_4   : string  = "snemo_foil_29_pad_4.model"
-stacked.limit_max_4 : real as length =16.9 cm
+stacked.limit_max_4 : real as length = 16.9 cm
 stacked.label_4   : string  = "snemo_pad_29_4"
-
 stacked.model_3   : string  = "snemo_foil_29_pad_3.model"
-stacked.limit_max_3 : real as length =16.9 cm
+stacked.limit_max_3 : real as length = 16.9 cm
 stacked.label_3   : string  = "snemo_pad_29_3"
-
 stacked.model_2   : string  = "snemo_foil_29_pad_2.model"
-stacked.limit_max_2 : real as length =16.9 cm
+stacked.limit_max_2 : real as length = 16.9 cm
 stacked.label_2   : string  = "snemo_pad_29_2"
-
 stacked.model_1   : string  = "snemo_foil_29_pad_1.model"
-stacked.limit_max_1 : real as length =16.9 cm
+stacked.limit_max_1 : real as length = 16.9 cm
 stacked.label_1   : string  = "snemo_pad_29_1"
-
 stacked.model_0   : string  = "snemo_foil_29_pad_0.model"
-stacked.limit_max_0 : real as length =16.849999999999998 cm
+stacked.limit_max_0 : real as length = 16.85 cm
 stacked.label_0   : string  = "snemo_pad_29_0"
-
-
-
 visibility.hidden  : boolean = 0
-
 # Mapping the source foil from its parent category :
-
 mapping.daughter_id.snemo_pad_29_0 : string = "[source_pad:pad=0]"
 mapping.daughter_id.snemo_pad_29_1 : string = "[source_pad:pad=1]"
 mapping.daughter_id.snemo_pad_29_2 : string = "[source_pad:pad=2]"
@@ -2906,29 +2322,21 @@ mapping.daughter_id.snemo_pad_29_7 : string = "[source_pad:pad=7]"
     
 #########################################################################
 [name="snemo_strip_29.model" type="geomtools::stacked_model"]
-
 stacked.axis            : string = "x"
 stacked.number_of_items : integer = 3
-
 stacked.model_0   : string = "source_film.realistic.model"
 stacked.label_0   : string = "back_film"
-
 stacked.model_1   : string = "snemo_source_29.model"
 stacked.label_1   : string = "source"
-
 stacked.model_2   : string = "source_film.realistic.model"
 stacked.label_2   : string = "front_film"
-
 material.ref      : string = "tracking_gas"
-
 visibility.color  : string = "green"
-
 # Mapping the daughter volumes :
 mapping.daughter_id.back_film  : string = "[source_strip_film:film=0]"
 mapping.daughter_id.front_film : string = "[source_strip_film:film=1]"
 
 ##########################################################################
-
 [name="snemo_foil_30_pad_7.model" type="geomtools::simple_shaped_model"]
 shape_type         : string  = "box"
 length_unit        : string  = "cm"
@@ -2940,7 +2348,6 @@ visibility.hidden  : boolean = 0
 visibility.color   : string  = "magenta"
 
 ##########################################################################
-
 [name="snemo_foil_30_pad_6.model" type="geomtools::simple_shaped_model"]
 shape_type         : string  = "box"
 length_unit        : string  = "cm"
@@ -2952,7 +2359,6 @@ visibility.hidden  : boolean = 0
 visibility.color   : string  = "magenta"
 
 ##########################################################################
-
 [name="snemo_foil_30_pad_5.model" type="geomtools::simple_shaped_model"]
 shape_type         : string  = "box"
 length_unit        : string  = "cm"
@@ -2964,7 +2370,6 @@ visibility.hidden  : boolean = 0
 visibility.color   : string  = "magenta"
 
 ##########################################################################
-
 [name="snemo_foil_30_pad_4.model" type="geomtools::simple_shaped_model"]
 shape_type         : string  = "box"
 length_unit        : string  = "cm"
@@ -2976,7 +2381,6 @@ visibility.hidden  : boolean = 0
 visibility.color   : string  = "magenta"
 
 ##########################################################################
-
 [name="snemo_foil_30_pad_3.model" type="geomtools::simple_shaped_model"]
 shape_type         : string  = "box"
 length_unit        : string  = "cm"
@@ -2988,7 +2392,6 @@ visibility.hidden  : boolean = 0
 visibility.color   : string  = "magenta"
 
 ##########################################################################
-
 [name="snemo_foil_30_pad_2.model" type="geomtools::simple_shaped_model"]
 shape_type         : string  = "box"
 length_unit        : string  = "cm"
@@ -3000,7 +2403,6 @@ visibility.hidden  : boolean = 0
 visibility.color   : string  = "magenta"
 
 ##########################################################################
-
 [name="snemo_foil_30_pad_1.model" type="geomtools::simple_shaped_model"]
 shape_type         : string  = "box"
 length_unit        : string  = "cm"
@@ -3012,7 +2414,6 @@ visibility.hidden  : boolean = 0
 visibility.color   : string  = "magenta"
 
 ##########################################################################
-
 [name="snemo_foil_30_pad_0.model" type="geomtools::simple_shaped_model"]
 shape_type         : string  = "box"
 length_unit        : string  = "cm"
@@ -3028,45 +2429,32 @@ visibility.color   : string  = "magenta"
 material.ref            : string = "tracking_gas"
 stacked.axis            : string = "z"
 stacked.number_of_items : integer = 8
-
 stacked.model_7   : string  = "snemo_foil_30_pad_7.model"
-stacked.limit_max_7 : real as length =16.974999999999998 cm
+stacked.limit_max_7 : real as length = 16.975 cm
 stacked.label_7   : string  = "snemo_pad_30_7"
-
 stacked.model_6   : string  = "snemo_foil_30_pad_6.model"
-stacked.limit_max_6 : real as length =16.974999999999998 cm
+stacked.limit_max_6 : real as length = 16.975 cm
 stacked.label_6   : string  = "snemo_pad_30_6"
-
 stacked.model_5   : string  = "snemo_foil_30_pad_5.model"
-stacked.limit_max_5 : real as length =16.974999999999998 cm
+stacked.limit_max_5 : real as length = 16.975 cm
 stacked.label_5   : string  = "snemo_pad_30_5"
-
 stacked.model_4   : string  = "snemo_foil_30_pad_4.model"
-stacked.limit_max_4 : real as length =16.974999999999998 cm
+stacked.limit_max_4 : real as length = 16.975 cm
 stacked.label_4   : string  = "snemo_pad_30_4"
-
 stacked.model_3   : string  = "snemo_foil_30_pad_3.model"
-stacked.limit_max_3 : real as length =16.974999999999998 cm
+stacked.limit_max_3 : real as length = 16.975 cm
 stacked.label_3   : string  = "snemo_pad_30_3"
-
 stacked.model_2   : string  = "snemo_foil_30_pad_2.model"
-stacked.limit_max_2 : real as length =16.974999999999998 cm
+stacked.limit_max_2 : real as length = 16.975 cm
 stacked.label_2   : string  = "snemo_pad_30_2"
-
 stacked.model_1   : string  = "snemo_foil_30_pad_1.model"
-stacked.limit_max_1 : real as length =16.974999999999998 cm
+stacked.limit_max_1 : real as length = 16.975 cm
 stacked.label_1   : string  = "snemo_pad_30_1"
-
 stacked.model_0   : string  = "snemo_foil_30_pad_0.model"
-stacked.limit_max_0 : real as length =16.974999999999998 cm
+stacked.limit_max_0 : real as length = 16.975 cm
 stacked.label_0   : string  = "snemo_pad_30_0"
-
-
-
 visibility.hidden  : boolean = 0
-
 # Mapping the source foil from its parent category :
-
 mapping.daughter_id.snemo_pad_30_0 : string = "[source_pad:pad=0]"
 mapping.daughter_id.snemo_pad_30_1 : string = "[source_pad:pad=1]"
 mapping.daughter_id.snemo_pad_30_2 : string = "[source_pad:pad=2]"
@@ -3075,35 +2463,24 @@ mapping.daughter_id.snemo_pad_30_4 : string = "[source_pad:pad=4]"
 mapping.daughter_id.snemo_pad_30_5 : string = "[source_pad:pad=5]"
 mapping.daughter_id.snemo_pad_30_6 : string = "[source_pad:pad=6]"
 mapping.daughter_id.snemo_pad_30_7 : string = "[source_pad:pad=7]"
-
-
-
     
 #########################################################################
 [name="snemo_strip_30.model" type="geomtools::stacked_model"]
-
 stacked.axis            : string = "x"
 stacked.number_of_items : integer = 3
-
 stacked.model_0   : string = "source_film.realistic.model"
 stacked.label_0   : string = "back_film"
-
 stacked.model_1   : string = "snemo_source_30.model"
 stacked.label_1   : string = "source"
-
 stacked.model_2   : string = "source_film.realistic.model"
 stacked.label_2   : string = "front_film"
-
 material.ref      : string = "tracking_gas"
-
 visibility.color  : string = "green"
-
 # Mapping the daughter volumes :
 mapping.daughter_id.back_film  : string = "[source_strip_film:film=0]"
 mapping.daughter_id.front_film : string = "[source_strip_film:film=1]"
 
 ##########################################################################
-
 [name="snemo_foil_31_pad_7.model" type="geomtools::simple_shaped_model"]
 shape_type         : string  = "box"
 length_unit        : string  = "cm"
@@ -3115,7 +2492,6 @@ visibility.hidden  : boolean = 0
 visibility.color   : string  = "magenta"
 
 ##########################################################################
-
 [name="snemo_foil_31_pad_6.model" type="geomtools::simple_shaped_model"]
 shape_type         : string  = "box"
 length_unit        : string  = "cm"
@@ -3127,7 +2503,6 @@ visibility.hidden  : boolean = 0
 visibility.color   : string  = "magenta"
 
 ##########################################################################
-
 [name="snemo_foil_31_pad_5.model" type="geomtools::simple_shaped_model"]
 shape_type         : string  = "box"
 length_unit        : string  = "cm"
@@ -3139,7 +2514,6 @@ visibility.hidden  : boolean = 0
 visibility.color   : string  = "magenta"
 
 ##########################################################################
-
 [name="snemo_foil_31_pad_4.model" type="geomtools::simple_shaped_model"]
 shape_type         : string  = "box"
 length_unit        : string  = "cm"
@@ -3151,7 +2525,6 @@ visibility.hidden  : boolean = 0
 visibility.color   : string  = "magenta"
 
 ##########################################################################
-
 [name="snemo_foil_31_pad_3.model" type="geomtools::simple_shaped_model"]
 shape_type         : string  = "box"
 length_unit        : string  = "cm"
@@ -3163,7 +2536,6 @@ visibility.hidden  : boolean = 0
 visibility.color   : string  = "magenta"
 
 ##########################################################################
-
 [name="snemo_foil_31_pad_2.model" type="geomtools::simple_shaped_model"]
 shape_type         : string  = "box"
 length_unit        : string  = "cm"
@@ -3175,7 +2547,6 @@ visibility.hidden  : boolean = 0
 visibility.color   : string  = "magenta"
 
 ##########################################################################
-
 [name="snemo_foil_31_pad_1.model" type="geomtools::simple_shaped_model"]
 shape_type         : string  = "box"
 length_unit        : string  = "cm"
@@ -3187,7 +2558,6 @@ visibility.hidden  : boolean = 0
 visibility.color   : string  = "magenta"
 
 ##########################################################################
-
 [name="snemo_foil_31_pad_0.model" type="geomtools::simple_shaped_model"]
 shape_type         : string  = "box"
 length_unit        : string  = "cm"
@@ -3203,46 +2573,32 @@ visibility.color   : string  = "magenta"
 material.ref            : string = "tracking_gas"
 stacked.axis            : string = "z"
 stacked.number_of_items : integer = 8
-
 stacked.model_7   : string  = "snemo_foil_31_pad_7.model"
-stacked.limit_max_7 : real as length =16.974999999999998 cm
+stacked.limit_max_7 : real as length = 16.975 cm
 stacked.label_7   : string  = "snemo_pad_31_7"
-
 stacked.model_6   : string  = "snemo_foil_31_pad_6.model"
-stacked.limit_max_6 : real as length =16.974999999999998 cm
+stacked.limit_max_6 : real as length = 16.975 cm
 stacked.label_6   : string  = "snemo_pad_31_6"
-
 stacked.model_5   : string  = "snemo_foil_31_pad_5.model"
-stacked.limit_max_5 : real as length =16.974999999999998 cm
+stacked.limit_max_5 : real as length = 16.975 cm
 stacked.label_5   : string  = "snemo_pad_31_5"
-
 stacked.model_4   : string  = "snemo_foil_31_pad_4.model"
-stacked.limit_max_4 : real as length =16.974999999999998 cm
+stacked.limit_max_4 : real as length = 16.975 cm
 stacked.label_4   : string  = "snemo_pad_31_4"
-
 stacked.model_3   : string  = "snemo_foil_31_pad_3.model"
-stacked.limit_max_3 : real as length =16.974999999999998 cm
+stacked.limit_max_3 : real as length = 16.975 cm
 stacked.label_3   : string  = "snemo_pad_31_3"
-
 stacked.model_2   : string  = "snemo_foil_31_pad_2.model"
-stacked.limit_max_2 : real as length =16.974999999999998 cm
+stacked.limit_max_2 : real as length = 16.975 cm
 stacked.label_2   : string  = "snemo_pad_31_2"
-
 stacked.model_1   : string  = "snemo_foil_31_pad_1.model"
-stacked.limit_max_1 : real as length =16.974999999999998 cm
+stacked.limit_max_1 : real as length = 16.975 cm
 stacked.label_1   : string  = "snemo_pad_31_1"
-
 stacked.model_0   : string  = "snemo_foil_31_pad_0.model"
-stacked.limit_max_0 : real as length =16.974999999999998 cm
+stacked.limit_max_0 : real as length = 16.975 cm
 stacked.label_0   : string  = "snemo_pad_31_0"
-
-
-
 visibility.hidden  : boolean = 0
-
 # Mapping the source foil from its parent category :
-
-    
 mapping.daughter_id.snemo_pad_31_0 : string = "[source_pad:pad=0]"
 mapping.daughter_id.snemo_pad_31_1 : string = "[source_pad:pad=1]"
 mapping.daughter_id.snemo_pad_31_2 : string = "[source_pad:pad=2]"
@@ -3254,29 +2610,21 @@ mapping.daughter_id.snemo_pad_31_7 : string = "[source_pad:pad=7]"
 
 #########################################################################
 [name="snemo_strip_31.model" type="geomtools::stacked_model"]
-
 stacked.axis            : string = "x"
 stacked.number_of_items : integer = 3
-
 stacked.model_0   : string = "source_film.realistic.model"
 stacked.label_0   : string = "back_film"
-
 stacked.model_1   : string = "snemo_source_31.model"
 stacked.label_1   : string = "source"
-
 stacked.model_2   : string = "source_film.realistic.model"
 stacked.label_2   : string = "front_film"
-
 material.ref      : string = "tracking_gas"
-
 visibility.color  : string = "green"
-
 # Mapping the daughter volumes :
 mapping.daughter_id.back_film  : string = "[source_strip_film:film=0]"
 mapping.daughter_id.front_film : string = "[source_strip_film:film=1]"
 
 ##########################################################################
-
 [name="snemo_foil_32_pad_7.model" type="geomtools::simple_shaped_model"]
 shape_type         : string  = "box"
 length_unit        : string  = "cm"
@@ -3288,7 +2636,6 @@ visibility.hidden  : boolean = 0
 visibility.color   : string  = "magenta"
 
 ##########################################################################
-
 [name="snemo_foil_32_pad_6.model" type="geomtools::simple_shaped_model"]
 shape_type         : string  = "box"
 length_unit        : string  = "cm"
@@ -3300,7 +2647,6 @@ visibility.hidden  : boolean = 0
 visibility.color   : string  = "magenta"
 
 ##########################################################################
-
 [name="snemo_foil_32_pad_5.model" type="geomtools::simple_shaped_model"]
 shape_type         : string  = "box"
 length_unit        : string  = "cm"
@@ -3312,7 +2658,6 @@ visibility.hidden  : boolean = 0
 visibility.color   : string  = "magenta"
 
 ##########################################################################
-
 [name="snemo_foil_32_pad_4.model" type="geomtools::simple_shaped_model"]
 shape_type         : string  = "box"
 length_unit        : string  = "cm"
@@ -3324,7 +2669,6 @@ visibility.hidden  : boolean = 0
 visibility.color   : string  = "magenta"
 
 ##########################################################################
-
 [name="snemo_foil_32_pad_3.model" type="geomtools::simple_shaped_model"]
 shape_type         : string  = "box"
 length_unit        : string  = "cm"
@@ -3336,7 +2680,6 @@ visibility.hidden  : boolean = 0
 visibility.color   : string  = "magenta"
 
 ##########################################################################
-
 [name="snemo_foil_32_pad_2.model" type="geomtools::simple_shaped_model"]
 shape_type         : string  = "box"
 length_unit        : string  = "cm"
@@ -3348,7 +2691,6 @@ visibility.hidden  : boolean = 0
 visibility.color   : string  = "magenta"
 
 ##########################################################################
-
 [name="snemo_foil_32_pad_1.model" type="geomtools::simple_shaped_model"]
 shape_type         : string  = "box"
 length_unit        : string  = "cm"
@@ -3360,7 +2702,6 @@ visibility.hidden  : boolean = 0
 visibility.color   : string  = "magenta"
 
 ##########################################################################
-
 [name="snemo_foil_32_pad_0.model" type="geomtools::simple_shaped_model"]
 shape_type         : string  = "box"
 length_unit        : string  = "cm"
@@ -3376,45 +2717,32 @@ visibility.color   : string  = "magenta"
 material.ref            : string = "tracking_gas"
 stacked.axis            : string = "z"
 stacked.number_of_items : integer = 8
-
 stacked.model_7   : string  = "snemo_foil_32_pad_7.model"
-stacked.limit_max_7 : real as length =16.974999999999998 cm
+stacked.limit_max_7 : real as length = 16.975 cm
 stacked.label_7   : string  = "snemo_pad_32_7"
-
 stacked.model_6   : string  = "snemo_foil_32_pad_6.model"
-stacked.limit_max_6 : real as length =16.974999999999998 cm
+stacked.limit_max_6 : real as length = 16.975 cm
 stacked.label_6   : string  = "snemo_pad_32_6"
-
 stacked.model_5   : string  = "snemo_foil_32_pad_5.model"
-stacked.limit_max_5 : real as length =16.974999999999998 cm
+stacked.limit_max_5 : real as length = 16.975 cm
 stacked.label_5   : string  = "snemo_pad_32_5"
-
 stacked.model_4   : string  = "snemo_foil_32_pad_4.model"
-stacked.limit_max_4 : real as length =16.974999999999998 cm
+stacked.limit_max_4 : real as length = 16.975 cm
 stacked.label_4   : string  = "snemo_pad_32_4"
-
 stacked.model_3   : string  = "snemo_foil_32_pad_3.model"
-stacked.limit_max_3 : real as length =16.974999999999998 cm
+stacked.limit_max_3 : real as length = 16.975 cm
 stacked.label_3   : string  = "snemo_pad_32_3"
-
 stacked.model_2   : string  = "snemo_foil_32_pad_2.model"
-stacked.limit_max_2 : real as length =16.974999999999998 cm
+stacked.limit_max_2 : real as length = 16.975 cm
 stacked.label_2   : string  = "snemo_pad_32_2"
-
 stacked.model_1   : string  = "snemo_foil_32_pad_1.model"
-stacked.limit_max_1 : real as length =16.974999999999998 cm
+stacked.limit_max_1 : real as length = 16.975 cm
 stacked.label_1   : string  = "snemo_pad_32_1"
-
 stacked.model_0   : string  = "snemo_foil_32_pad_0.model"
-stacked.limit_max_0 : real as length =16.974999999999998 cm
+stacked.limit_max_0 : real as length = 16.975 cm
 stacked.label_0   : string  = "snemo_pad_32_0"
-
-
-
 visibility.hidden  : boolean = 0
-
 # Mapping the source foil from its parent category :
-
 mapping.daughter_id.snemo_pad_32_0 : string = "[source_pad:pad=0]"
 mapping.daughter_id.snemo_pad_32_1 : string = "[source_pad:pad=1]"
 mapping.daughter_id.snemo_pad_32_2 : string = "[source_pad:pad=2]"
@@ -3426,29 +2754,21 @@ mapping.daughter_id.snemo_pad_32_7 : string = "[source_pad:pad=7]"
     
 #########################################################################
 [name="snemo_strip_32.model" type="geomtools::stacked_model"]
-
 stacked.axis            : string = "x"
 stacked.number_of_items : integer = 3
-
 stacked.model_0   : string = "source_film.realistic.model"
 stacked.label_0   : string = "back_film"
-
 stacked.model_1   : string = "snemo_source_32.model"
 stacked.label_1   : string = "source"
-
 stacked.model_2   : string = "source_film.realistic.model"
 stacked.label_2   : string = "front_film"
-
 material.ref      : string = "tracking_gas"
-
 visibility.color  : string = "green"
-
 # Mapping the daughter volumes :
 mapping.daughter_id.back_film  : string = "[source_strip_film:film=0]"
 mapping.daughter_id.front_film : string = "[source_strip_film:film=1]"
 
 ##########################################################################
-
 [name="snemo_foil_33_pad_7.model" type="geomtools::simple_shaped_model"]
 shape_type         : string  = "box"
 length_unit        : string  = "cm"
@@ -3460,7 +2780,6 @@ visibility.hidden  : boolean = 0
 visibility.color   : string  = "magenta"
 
 ##########################################################################
-
 [name="snemo_foil_33_pad_6.model" type="geomtools::simple_shaped_model"]
 shape_type         : string  = "box"
 length_unit        : string  = "cm"
@@ -3472,7 +2791,6 @@ visibility.hidden  : boolean = 0
 visibility.color   : string  = "magenta"
 
 ##########################################################################
-
 [name="snemo_foil_33_pad_5.model" type="geomtools::simple_shaped_model"]
 shape_type         : string  = "box"
 length_unit        : string  = "cm"
@@ -3484,7 +2802,6 @@ visibility.hidden  : boolean = 0
 visibility.color   : string  = "magenta"
 
 ##########################################################################
-
 [name="snemo_foil_33_pad_4.model" type="geomtools::simple_shaped_model"]
 shape_type         : string  = "box"
 length_unit        : string  = "cm"
@@ -3496,7 +2813,6 @@ visibility.hidden  : boolean = 0
 visibility.color   : string  = "magenta"
 
 ##########################################################################
-
 [name="snemo_foil_33_pad_3.model" type="geomtools::simple_shaped_model"]
 shape_type         : string  = "box"
 length_unit        : string  = "cm"
@@ -3508,7 +2824,6 @@ visibility.hidden  : boolean = 0
 visibility.color   : string  = "magenta"
 
 ##########################################################################
-
 [name="snemo_foil_33_pad_2.model" type="geomtools::simple_shaped_model"]
 shape_type         : string  = "box"
 length_unit        : string  = "cm"
@@ -3520,7 +2835,6 @@ visibility.hidden  : boolean = 0
 visibility.color   : string  = "magenta"
 
 ##########################################################################
-
 [name="snemo_foil_33_pad_1.model" type="geomtools::simple_shaped_model"]
 shape_type         : string  = "box"
 length_unit        : string  = "cm"
@@ -3532,7 +2846,6 @@ visibility.hidden  : boolean = 0
 visibility.color   : string  = "magenta"
 
 ##########################################################################
-
 [name="snemo_foil_33_pad_0.model" type="geomtools::simple_shaped_model"]
 shape_type         : string  = "box"
 length_unit        : string  = "cm"
@@ -3548,45 +2861,32 @@ visibility.color   : string  = "magenta"
 material.ref            : string = "tracking_gas"
 stacked.axis            : string = "z"
 stacked.number_of_items : integer = 8
-
 stacked.model_7   : string  = "snemo_foil_33_pad_7.model"
-stacked.limit_max_7 : real as length =16.974999999999998 cm
+stacked.limit_max_7 : real as length = 16.975 cm
 stacked.label_7   : string  = "snemo_pad_33_7"
-
 stacked.model_6   : string  = "snemo_foil_33_pad_6.model"
-stacked.limit_max_6 : real as length =16.974999999999998 cm
+stacked.limit_max_6 : real as length = 16.975 cm
 stacked.label_6   : string  = "snemo_pad_33_6"
-
 stacked.model_5   : string  = "snemo_foil_33_pad_5.model"
-stacked.limit_max_5 : real as length =16.974999999999998 cm
+stacked.limit_max_5 : real as length = 16.975 cm
 stacked.label_5   : string  = "snemo_pad_33_5"
-
 stacked.model_4   : string  = "snemo_foil_33_pad_4.model"
-stacked.limit_max_4 : real as length =16.974999999999998 cm
+stacked.limit_max_4 : real as length = 16.975 cm
 stacked.label_4   : string  = "snemo_pad_33_4"
-
 stacked.model_3   : string  = "snemo_foil_33_pad_3.model"
-stacked.limit_max_3 : real as length =16.974999999999998 cm
+stacked.limit_max_3 : real as length = 16.975 cm
 stacked.label_3   : string  = "snemo_pad_33_3"
-
 stacked.model_2   : string  = "snemo_foil_33_pad_2.model"
-stacked.limit_max_2 : real as length =16.974999999999998 cm
+stacked.limit_max_2 : real as length = 16.975 cm
 stacked.label_2   : string  = "snemo_pad_33_2"
-
 stacked.model_1   : string  = "snemo_foil_33_pad_1.model"
-stacked.limit_max_1 : real as length =16.974999999999998 cm
+stacked.limit_max_1 : real as length = 16.975 cm
 stacked.label_1   : string  = "snemo_pad_33_1"
-
 stacked.model_0   : string  = "snemo_foil_33_pad_0.model"
-stacked.limit_max_0 : real as length =16.974999999999998 cm
+stacked.limit_max_0 : real as length = 16.975 cm
 stacked.label_0   : string  = "snemo_pad_33_0"
-
-
-
 visibility.hidden  : boolean = 0
-
 # Mapping the source foil from its parent category :
-
 mapping.daughter_id.snemo_pad_33_0 : string = "[source_pad:pad=0]"
 mapping.daughter_id.snemo_pad_33_1 : string = "[source_pad:pad=1]"
 mapping.daughter_id.snemo_pad_33_2 : string = "[source_pad:pad=2]"
@@ -3598,29 +2898,21 @@ mapping.daughter_id.snemo_pad_33_7 : string = "[source_pad:pad=7]"
     
 #########################################################################
 [name="snemo_strip_33.model" type="geomtools::stacked_model"]
-
 stacked.axis            : string = "x"
 stacked.number_of_items : integer = 3
-
 stacked.model_0   : string = "source_film.realistic.model"
 stacked.label_0   : string = "back_film"
-
 stacked.model_1   : string = "snemo_source_33.model"
 stacked.label_1   : string = "source"
-
 stacked.model_2   : string = "source_film.realistic.model"
 stacked.label_2   : string = "front_film"
-
 material.ref      : string = "tracking_gas"
-
 visibility.color  : string = "green"
-
 # Mapping the daughter volumes :
 mapping.daughter_id.back_film  : string = "[source_strip_film:film=0]"
 mapping.daughter_id.front_film : string = "[source_strip_film:film=1]"
 
-##########################################################################
-
+#########################################################################
 [name="snemo_foil_34_pad_0.model" type="geomtools::simple_shaped_model"]
 shape_type         : string  = "box"
 length_unit        : string  = "cm"
@@ -3636,42 +2928,29 @@ visibility.color   : string  = "magenta"
 material.ref            : string = "tracking_gas"
 stacked.axis            : string = "z"
 stacked.number_of_items : integer = 1
-
 stacked.model_0   : string  = "snemo_foil_34_pad_0.model"
 stacked.label_0   : string  = "snemo_pad_34_0"
-
-
-
 visibility.hidden  : boolean = 0
-
 # Mapping the source foil from its parent category :
 mapping.daughter_id.snemo_pad_34_0 : string = "[source_pad:pad=0]"
     
 #########################################################################
 [name="snemo_strip_34.model" type="geomtools::stacked_model"]
-
 stacked.axis            : string = "x"
 stacked.number_of_items : integer = 3
-
 stacked.model_0   : string = "source_film.realistic.model"
 stacked.label_0   : string = "back_film"
-
 stacked.model_1   : string = "snemo_source_34.model"
 stacked.label_1   : string = "source"
-
 stacked.model_2   : string = "source_film.realistic.model"
 stacked.label_2   : string = "front_film"
-
 material.ref      : string = "tracking_gas"
-
 visibility.color  : string = "green"
-
 # Mapping the daughter volumes :
 mapping.daughter_id.back_film  : string = "[source_strip_film:film=0]"
 mapping.daughter_id.front_film : string = "[source_strip_film:film=1]"
 
 ##########################################################################
-
 [name="snemo_foil_35_pad_0.model" type="geomtools::simple_shaped_model"]
 shape_type         : string  = "box"
 length_unit        : string  = "cm"
@@ -3682,57 +2961,38 @@ material.ref       : string  = "basic::copper"
 visibility.hidden  : boolean = 0
 visibility.color   : string  = "magenta"
 
+#########################################################################
 [name="snemo_source_35.model" type="geomtools::simple_shaped_model"]
-
 shape_type         : string  = "box"
 x                  : real    =   43.0 um
 y                  : real    =   12.5 cm
 z                  : real    = 3350.0 mm
-
 material.ref       : string  = "tracking_gas"
-
 # #@description The list of internal items
 internal_item.labels : string[3] = "bottom_film" "source_35_0" "top_film"
-
 # Describe the internal items :
 internal_item.model.bottom_film       : string  = "short_film.realistic.model"
 internal_item.placement.bottom_film   : string  = "0 0 -1460 (mm) "
-
 internal_item.model.source_35_0        : string  = "snemo_foil_35_pad_0.model"
 internal_item.placement.source_35_0    : string  = "0 0 0 (mm) "
-
 internal_item.model.top_film          : string  = "short_film.realistic.model"
 internal_item.placement.top_film      : string  = "0 0 +1460 (mm) "
-
 visibility.color  : string = "green"
-
-# # Mapping the source foil from its parent category :
+# Mapping the source foil from its parent category :
 mapping.daughter_id.source_35_0 : string = "[source_pad:pad=0]"
 #mapping.daughter_id.bottom_film  : string = "[source_strip_film:film=0]"
 #mapping.daughter_id.top_film  : string = "[source_strip_film:film=1]"	
 
-
-
-
 #########################################################################
 [name="snemo_strip_35.model" type="geomtools::stacked_model"]
-
 stacked.axis            : string = "x"
 stacked.number_of_items : integer = 1
-
-# stacked.model_0   : string = "source_film.realistic.model"
-# stacked.label_0   : string = "back_film"
-
 stacked.model_0  : string = "snemo_source_35.model"
 stacked.label_0  : string = "source"
-
-# stacked.model_2   : string = "source_film.realistic.model"
-# stacked.label_2   : string = "front_film"
-
 material.ref      : string = "tracking_gas"
-
 visibility.color  : string = "green"
-
 # # Mapping the daughter volumes :
 # mapping.daughter_id.back_film  : string = "[source_strip_film:film=0]"
 # mapping.daughter_id.front_film : string = "[source_strip_film:film=1]"
+
+# end
