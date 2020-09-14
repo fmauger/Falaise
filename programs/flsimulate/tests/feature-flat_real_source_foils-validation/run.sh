@@ -96,7 +96,7 @@ if [ ! -d ${FLWORKDIR} ]; then
 fi
 
 cp ${cfg_dir}/flsimulate.profile ${FLWORKDIR}/
-echo >&2 "[info] Running flsimulate-configure..."
+# echo >&2 "[info] Running flsimulate-configure..."
 # flsimulate-configure --no-gui \
 #     -t "urn:snemo:demonstrator:simulation:2.2" \
 #     -s "vertexes:generator=real_flat_source_full_foils_se82_bulk" \
