@@ -9,10 +9,12 @@
 #include <string>
 
 // Third party:
-// - Boost/datatools:
+// - Boost:
+#include <boost/filesystem.hpp>
+// - Bayeux/datatools:
 #include <datatools/clhep_units.h>
 #include <datatools/io_factory.h>
-// - Boost/geomtools:
+// - Bayeux/geomtools:
 #include <geomtools/geom_id.h>
 #include <geomtools/gnuplot_draw.h>
 #include <geomtools/gnuplot_i.h>
@@ -310,6 +312,33 @@ int main(int argc_, char** argv_) {
       datatools::data_writer writer(xml_data_filename,
                                     datatools::using_multiple_archives);
       writer.store(ER);
+    }
+
+    {
+      std::string old_version_xml_data_filename = "test_tcd-version0.xml";
+      boost::filesystem::path p(old_version_xml_data_filename);
+      if (boost::filesystem::exists(p)) {
+        datatools::data_reader reader(old_version_xml_data_filename,
+                                      datatools::using_multiple_archives);
+        sdm::tracker_clustering_data TCD2;
+        reader.load(TCD2);
+        TCD2.tree_dump(std::clog, "Tracker clustering data ('TCD'), loaded from version=0 : ");
+      }
+    }
+
+    {
+      std::string old_version_xml_data_filename = "test_er-version0.xml";
+      boost::filesystem::path p(old_version_xml_data_filename);
+      if (boost::filesystem::exists(p)) {
+        datatools::data_reader reader(old_version_xml_data_filename,
+                                      datatools::using_multiple_archives);
+        datatools::things ER2;
+        reader.load(ER2);
+        ER2.tree_dump(std::clog, "Event record ('ER'), loaded with TCD version=0 : ");
+        const auto& TCD2 = ER2.get<sdm::tracker_clustering_data>(snedm::labels::tracker_clustering_data());
+        TCD2.tree_dump(std::clog, "Tracker clustering data ('TCD'), loaded from ER with TCD version=0 : ");
+    
+      }
     }
 
     std::clog << "The end." << std::endl;
