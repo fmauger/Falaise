@@ -48,14 +48,48 @@ const TrackerClusteringSolutionHdlCollection& tracker_clustering_data::solutions
   return solutions_;
 }
 
+bool tracker_clustering_data::has_chi2() const {
+  return datatools::is_valid(chi2_);
+}
+
+void tracker_clustering_data::set_chi2(double value_) {
+  chi2_ = value_;
+}
+
+void tracker_clustering_data::reset_chi2() {
+  chi2_ = std::numeric_limits<double>::quiet_NaN();
+}
+  
+double tracker_clustering_data::get_chi2() const {
+  return chi2_;
+}
+
+bool tracker_clustering_data::has_ndof() const {
+  return ndof_ > 0;
+}
+
+void tracker_clustering_data::set_ndof(std::uint16_t value_) {
+  ndof_ = value_;
+}
+
+void tracker_clustering_data::reset_ndof() {
+  ndof_ = 0;
+}
+    
+std::uint16_t tracker_clustering_data::get_ndof() const {
+  return ndof_;
+}
+
 void tracker_clustering_data::clear() {
   solutions_.clear();
   default_ = TrackerClusteringSolutionHdl{};
   _auxiliaries_.clear();
+  reset_chi2();
+  reset_ndof();
 }
 
 void tracker_clustering_data::tree_dump(std::ostream& out, const std::string& title,
-                                        const std::string& indent, bool /*inherit_*/) const {
+                                        const std::string& indent, bool inherit_) const {
   if (!title.empty()) {
     out << indent << title << std::endl;
   }
@@ -79,6 +113,24 @@ void tracker_clustering_data::tree_dump(std::ostream& out, const std::string& ti
 
   out << indent << datatools::i_tree_dumpable::tag
       << "Default solution : " << (default_ ? "Yes" : "No") << std::endl;
+
+  out << indent << datatools::i_tree_dumpable::tag
+      << "Chi2 : ";
+  if (has_chi2()) {
+    out << chi2_;
+  } else {
+    out << "<none>";
+  }
+  out << std::endl;
+
+  out << indent << datatools::i_tree_dumpable::inherit_tag(inherit_)
+      << "Ndof : ";
+  if (has_ndof()) {
+    out << ndof_;
+  } else {
+    out << "<none>";
+  }
+  out << std::endl;
 }
 
 // Serial tag for datatools::serialization::i_serializable interface :

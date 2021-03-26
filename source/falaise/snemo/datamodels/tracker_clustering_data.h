@@ -167,11 +167,32 @@ class tracker_clustering_data : public datatools::i_serializable,
   virtual void tree_dump(std::ostream& out = std::clog, const std::string& title = "",
                          const std::string& indent = "", bool is_last = false) const;
 
+  bool has_chi2() const;
+
+  void set_chi2(double);
+
+  void reset_chi2();
+  
+  double get_chi2() const;
+
+  bool has_ndof() const;
+
+  void set_ndof(std::uint16_t);
+
+  void reset_ndof();
+    
+  std::uint16_t get_ndof() const;
+
  private:
   TrackerClusteringSolutionHdlCollection solutions_{};  //!< Collection of Geiger cluster solutions
   TrackerClusteringSolutionHdl default_{};              //!< Handle to the default solution
-
+ 
   datatools::properties _auxiliaries_{};  // unused, kept for backward serialization compatibility
+
+  // New attributes:
+  double        chi2_{std::numeric_limits<double>::quiet_NaN()};
+  std::uint16_t ndof_{0};
+
   DATATOOLS_SERIALIZATION_DECLARATION()
 };
 
@@ -182,6 +203,9 @@ class tracker_clustering_data : public datatools::i_serializable,
 #include <boost/serialization/export.hpp>
 BOOST_CLASS_EXPORT_KEY2(snemo::datamodel::tracker_clustering_data,
                         "snemo::datamodel::tracker_clustering_data")
+// Class version:
+#include <boost/serialization/version.hpp>
+BOOST_CLASS_VERSION(snemo::datamodel::tracker_clustering_data, 1)
 
 #endif  // FALAISE_SNEMO_DATAMODELS_TRACKER_CLUSTERING_DATA_H
 

@@ -11,6 +11,7 @@
 // Third party:
 // - Boost/datatools:
 #include <datatools/clhep_units.h>
+#include <datatools/io_factory.h>
 // - Boost/geomtools:
 #include <geomtools/geom_id.h>
 #include <geomtools/gnuplot_draw.h>
@@ -271,6 +272,8 @@ int main(int argc_, char** argv_) {
     }
 
     TCD.push_back(hTCS0, true);
+    TCD.set_chi2(42.0);
+    TCD.set_ndof(12);
     TCD.tree_dump(std::clog, "Tracker clustering data('TCD') : ");
     std::clog << std::endl;
 
@@ -293,6 +296,20 @@ int main(int argc_, char** argv_) {
       cmd_oss << ", '" << fvisuname << "' index 4 title 'solution #0/unclustered' with lines";
       g1.cmd(cmd_oss.str());
       wait_for_key();
+    }
+
+    {
+      std::string xml_data_filename = "test_tcd.xml";
+      datatools::data_writer writer(xml_data_filename,
+                                    datatools::using_multiple_archives);
+      writer.store(TCD);
+    }
+
+    {
+      std::string xml_data_filename = "test_er.xml";
+      datatools::data_writer writer(xml_data_filename,
+                                    datatools::using_multiple_archives);
+      writer.store(ER);
     }
 
     std::clog << "The end." << std::endl;
