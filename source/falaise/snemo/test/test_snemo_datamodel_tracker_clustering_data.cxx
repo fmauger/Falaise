@@ -272,7 +272,15 @@ int main(int argc_, char** argv_) {
     }
 
     TCD.push_back(hTCS0, true);
-    TCD.tree_dump(std::clog, "Tracker clustering data('TCD') : ");
+    sdm::tcd_recons_info & tcdRecInfo = TCD.grab_tcdrec();
+    tcdRecInfo.set_flag(true);
+    tcdRecInfo.set_nb(42);
+    tcdRecInfo.set_value(12.3456e7 * CLHEP::mm);
+    tcdRecInfo.set_label("foo");
+    tcdRecInfo.grab_residuals().push_back(1.2);
+    tcdRecInfo.grab_residuals().push_back(3.4);
+    tcdRecInfo.grab_residuals().push_back(5.6);
+    TCD.tree_dump(std::clog, "Tracker clustering data ('TCD') : ");
     std::clog << std::endl;
 
     ER.tree_dump(std::clog, "Event record : ");
@@ -308,6 +316,14 @@ int main(int argc_, char** argv_) {
       datatools::data_writer writer(xml_data_filename,
                                     datatools::using_multiple_archives);
       writer.store(ER);
+    }
+    {
+      std::string old_xml_data_filename = "test_tcd-version0.xml";
+      datatools::data_reader reader(old_xml_data_filename,
+                                    datatools::using_multiple_archives);
+      sdm::tracker_clustering_data TCD2;
+      reader.load(TCD2);
+      TCD2.tree_dump(std::clog, "Tracker clustering data ('TCD') load from file version=0 : ");
     }
 
     std::clog << "The end." << std::endl;

@@ -16,6 +16,7 @@ list(APPEND FalaiseLibrary_HEADERS
   snemo/datamodels/polyline_trajectory_pattern.h
   snemo/datamodels/timestamp.h
   snemo/datamodels/tracker_cluster.h
+  snemo/datamodels/tcd_recons_info.h
   snemo/datamodels/tracker_clustering_data.h
   snemo/datamodels/tracker_clustering_solution.h
   snemo/datamodels/tracker_trajectory.h
@@ -37,6 +38,7 @@ list(APPEND FalaiseLibrary_HEADERS
   snemo/datamodels/boost_io/tracker_clustering_data.ipp
   snemo/datamodels/boost_io/tracker_clustering_solution.ipp
   snemo/datamodels/boost_io/tracker_trajectory.ipp
+  snemo/datamodels/boost_io/tcd_recons_info.ipp
   snemo/datamodels/boost_io/tracker_trajectory_data.ipp
   snemo/datamodels/boost_io/tracker_trajectory_solution.ipp
 
@@ -92,6 +94,7 @@ list(APPEND FalaiseLibrary_SOURCES
   snemo/datamodels/helix_trajectory_pattern.cc
   snemo/datamodels/tracker_trajectory.cc
   snemo/datamodels/tracker_trajectory_solution.cc
+  snemo/datamodels/tcd_recons_info.cc
   snemo/datamodels/tracker_trajectory_data.cc
   snemo/datamodels/particle_track.cc
   snemo/datamodels/particle_track_data.cc
@@ -159,6 +162,7 @@ list(APPEND FalaiseLibrary_TESTS
   snemo/test/test_snemo_datamodel_calibrated_calorimeter_hit.cxx
   snemo/test/test_snemo_datamodel_calibrated_tracker_hit.cxx
   snemo/test/test_snemo_datamodel_tracker_cluster.cxx
+  snemo/test/test_snemo_datamodel_tcd_recons_info.cxx
   snemo/test/test_snemo_datamodel_tracker_clustering_data.cxx
   snemo/test/test_snemo_datamodel_tracker_clustering_solution.cxx
   snemo/test/test_snemo_datamodel_tracker_trajectory.cxx

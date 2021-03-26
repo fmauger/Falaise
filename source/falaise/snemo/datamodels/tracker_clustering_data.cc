@@ -52,10 +52,21 @@ void tracker_clustering_data::clear() {
   solutions_.clear();
   default_ = TrackerClusteringSolutionHdl{};
   _auxiliaries_.clear();
+  tcdrec_.reset();
+}
+  
+const tcd_recons_info & tracker_clustering_data::get_tcdrec() const
+{
+  return tcdrec_;
+}
+
+tcd_recons_info & tracker_clustering_data::grab_tcdrec()
+{
+  return tcdrec_;
 }
 
 void tracker_clustering_data::tree_dump(std::ostream& out, const std::string& title,
-                                        const std::string& indent, bool /*inherit_*/) const {
+                                        const std::string& indent, bool inherit_) const {
   if (!title.empty()) {
     out << indent << title << std::endl;
   }
@@ -79,6 +90,15 @@ void tracker_clustering_data::tree_dump(std::ostream& out, const std::string& ti
 
   out << indent << datatools::i_tree_dumpable::tag
       << "Default solution : " << (default_ ? "Yes" : "No") << std::endl;
+
+  out << indent << datatools::i_tree_dumpable::inherit_tag(inherit_)
+      << "TCD rec. : ";
+  if (datatools::is_valid(tcdrec_.get_value())) {
+    out << "<ok>";
+  } else {
+    out << "<invalid>";
+  }
+  out << std::endl;
 }
 
 // Serial tag for datatools::serialization::i_serializable interface :

@@ -31,6 +31,7 @@
 
 // This project:
 #include <falaise/snemo/datamodels/tracker_clustering_solution.h>
+#include <falaise/snemo/datamodels/tcd_recons_info.h>
 
 namespace snemo {
 
@@ -163,6 +164,11 @@ class tracker_clustering_data : public datatools::i_serializable,
   /// Set the default clustering solution
   void set_default(size_t index);
 
+  /// New methods
+  const tcd_recons_info & get_tcdrec() const;
+
+  tcd_recons_info & grab_tcdrec();
+ 
   /// Smart print
   virtual void tree_dump(std::ostream& out = std::clog, const std::string& title = "",
                          const std::string& indent = "", bool is_last = false) const;
@@ -172,6 +178,7 @@ class tracker_clustering_data : public datatools::i_serializable,
   TrackerClusteringSolutionHdl default_{};              //!< Handle to the default solution
 
   datatools::properties _auxiliaries_{};  // unused, kept for backward serialization compatibility
+  tcd_recons_info tcdrec_; //!< New attribute
   DATATOOLS_SERIALIZATION_DECLARATION()
 };
 
@@ -182,6 +189,9 @@ class tracker_clustering_data : public datatools::i_serializable,
 #include <boost/serialization/export.hpp>
 BOOST_CLASS_EXPORT_KEY2(snemo::datamodel::tracker_clustering_data,
                         "snemo::datamodel::tracker_clustering_data")
+// Class version:
+#include <boost/serialization/version.hpp>
+BOOST_CLASS_VERSION(snemo::datamodel::tracker_clustering_data, 1)
 
 #endif  // FALAISE_SNEMO_DATAMODELS_TRACKER_CLUSTERING_DATA_H
 
