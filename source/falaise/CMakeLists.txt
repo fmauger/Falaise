@@ -171,7 +171,7 @@ set(_falaise_TEST_ENVIRONMENT
   "FALAISE_RESOURCE_DIR=${PROJECT_SOURCE_DIR}/resources"
   "FALAISE_TESTING_DIR=${CMAKE_CURRENT_SOURCE_DIR}/test"
   )
-if(FALAISE_ENABLE_TESTING)
+if(FALAISE_ENABLE_TESTING) 
   # - CATCH TESTS
   foreach(_testsource ${FalaiseLibrary_TESTS_CATCH})
     get_filename_component(_testname "${_testsource}" NAME_WE)

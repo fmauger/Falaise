@@ -32,10 +32,9 @@ class base_trajectory_pattern
 
   enum direction_type
     {
-     DIRECTION_NONE     = 0,
-     DIRECTION_BACKWARD = datatools::bit_mask::bit01,
-     DIRECTION_FORWARD  = datatools::bit_mask::bit00,
-     DIRECTION_BOTH     = DIRECTION_FORWARD | DIRECTION_BACKWARD
+     DIRECTION_INVALID  = 0,
+     DIRECTION_BACKWARD = datatools::bit_mask::bit00,
+     DIRECTION_FORWARD  = datatools::bit_mask::bit01
     };
   
   /// Constructors
@@ -76,7 +75,7 @@ class base_trajectory_pattern
                          bool inherit_ = false) const override;
 
  private:
-  std::string _pattern_id_{""};  //!< The pattern identifier
+  std::string _pattern_id_{""}; //!< The pattern identifier
 
   DATATOOLS_SERIALIZATION_DECLARATION()
 };

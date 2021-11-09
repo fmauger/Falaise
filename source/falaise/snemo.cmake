@@ -14,6 +14,7 @@ list(APPEND FalaiseLibrary_HEADERS
   snemo/datamodels/particle_track.h
   snemo/datamodels/particle_track_data.h
   snemo/datamodels/polyline_trajectory_pattern.h
+  snemo/datamodels/two_arms_trajectory_pattern.h
   snemo/datamodels/timestamp.h
   snemo/datamodels/tracker_cluster.h
   snemo/datamodels/tracker_clustering_data.h
@@ -39,7 +40,7 @@ list(APPEND FalaiseLibrary_HEADERS
   snemo/datamodels/boost_io/tracker_trajectory.ipp
   snemo/datamodels/boost_io/tracker_trajectory_data.ipp
   snemo/datamodels/boost_io/tracker_trajectory_solution.ipp
-
+  snemo/datamodels/boost_io/two_arms_trajectory_pattern.ipp
 
   snemo/geometry/utils.h
   snemo/geometry/calo_locator.h
@@ -50,6 +51,8 @@ list(APPEND FalaiseLibrary_HEADERS
   snemo/geometry/locator_plugin.h
   snemo/geometry/mapped_magnetic_field.h
   snemo/geometry/helix_intercept.h
+  snemo/geometry/two_arms_curve_3d.h
+  snemo/geometry/boost_io/two_arms_curve_3d.ipp
 
   snemo/simulation/cosmic_muon_generator.h
   snemo/simulation/gg_step_hit_processor.h
@@ -91,6 +94,7 @@ list(APPEND FalaiseLibrary_SOURCES
   snemo/datamodels/line_trajectory_pattern.cc
   snemo/datamodels/polyline_trajectory_pattern.cc
   snemo/datamodels/helix_trajectory_pattern.cc
+  snemo/datamodels/two_arms_trajectory_pattern.cc
   snemo/datamodels/tracker_trajectory.cc
   snemo/datamodels/tracker_trajectory_solution.cc
   snemo/datamodels/tracker_trajectory_data.cc
@@ -109,6 +113,8 @@ list(APPEND FalaiseLibrary_SOURCES
   snemo/geometry/mapped_magnetic_field.cc
   snemo/geometry/private/categories.h
   snemo/geometry/helix_intercept.cc
+  snemo/geometry/two_arms_curve_3d.cc
+  snemo/geometry/boost_io/the_serializable2.cc # Build fails if named 'the_serializable.cc' !!!
 
   snemo/processing/event_header_utils_module.cc
   snemo/processing/event_header_utils_module.h
@@ -154,6 +160,7 @@ list(APPEND FalaiseLibrary_TESTS_CATCH
   snemo/test/test_service.cxx
   snemo/test/test_dead_cells_service.cxx
   snemo/test/test_event_record.cxx
+  snemo/test/test_snemo_geometry_two_arms_curve_3d.cxx
   )
 list(APPEND FalaiseLibrary_TESTS
   snemo/test/test_service_external.cxx
