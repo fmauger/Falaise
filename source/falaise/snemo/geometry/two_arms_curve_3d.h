@@ -88,7 +88,7 @@ namespace snemo {
       /// Destructor
       ~two_arms_curve_3d() override;
 
-      void reset();
+      void reset_arms();
 
       void set_first_arm(const geomtools::line_3d & line_);
 
@@ -97,6 +97,10 @@ namespace snemo {
       void set_second_arm(const geomtools::line_3d & line_);
 
       void set_second_arm(const geomtools::helix_3d & helix_);
+
+      bool can_second_arm(const geomtools::line_3d & line_) const;
+
+      bool can_second_arm(const geomtools::helix_3d & helix_) const;
 
       bool is_first_arm_line() const;
 

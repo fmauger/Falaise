@@ -81,7 +81,7 @@ namespace snemo {
     {
     }
 
-    void two_arms_curve_3d::reset()
+    void two_arms_curve_3d::reset_arms()
     {
       if (_second_arm_.code == SHAPE_CODE_HELIX) _second_arm_.helix = geomtools::helix_3d{};
       if (_second_arm_.code == SHAPE_CODE_LINE) _second_arm_.line = geomtools::line_3d{};
@@ -108,6 +108,20 @@ namespace snemo {
       _second_arm_.line = geomtools::line_3d{};
     }
 
+    bool two_arms_curve_3d::can_second_arm(const geomtools::line_3d & line_) const
+    {
+      if (_first_arm_.code == SHAPE_CODE_INVALID) {
+        DT_THROW(std::logic_error, "First arm is not set yet!");        
+      }
+      geomtools::vector_3d last_at_first;
+      if (_first_arm_.code == SHAPE_CODE_LINE) {
+        last_at_first = _first_arm_.line.get_last();
+      } else if (_first_arm_.code == SHAPE_CODE_HELIX) {
+        last_at_first = _first_arm_.helix.get_last();
+      }
+      return (line_.get_first() - last_at_first).mag() <= get_tolerance();
+    }
+
     void two_arms_curve_3d::set_second_arm(const geomtools::line_3d & line_)
     {
       if (_first_arm_.code == SHAPE_CODE_INVALID) {
@@ -126,6 +140,20 @@ namespace snemo {
                   << ") at requested tolerance!");
       _second_arm_.line = line_;
       _second_arm_.code = SHAPE_CODE_LINE;
+    }
+       
+    bool two_arms_curve_3d::can_second_arm(const geomtools::helix_3d & helix_) const
+    {
+      if (_first_arm_.code == SHAPE_CODE_INVALID) {
+        DT_THROW(std::logic_error, "First arm is not set yet!");        
+      }
+      geomtools::vector_3d last_at_first;
+      if (_first_arm_.code == SHAPE_CODE_LINE) {
+        last_at_first = _first_arm_.line.get_last();
+      } else if (_first_arm_.code == SHAPE_CODE_HELIX) {
+        last_at_first = _first_arm_.helix.get_last(); 
+      }
+      return (helix_.get_first() - last_at_first).mag() <= get_tolerance();
     }
         
     void two_arms_curve_3d::set_second_arm(const geomtools::helix_3d & helix_)
