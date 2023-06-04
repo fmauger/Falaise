@@ -178,8 +178,6 @@ set(_falaise_TEST_ENVIRONMENT ${_falaise_TEST_ENVIRONMENT}
   "FALAISE_SNEMO_TESTING_DIR=${CMAKE_CURRENT_SOURCE_DIR}/snemo/test"
   "FALAISE_GEOMETRY_TESTING_DIR=${CMAKE_CURRENT_SOURCE_DIR}/geometry/testing"
   )
-message( STATUS "_falaise_TEST_ENVIRONMENT='${_falaise_TEST_ENVIRONMENT}'")
-
 if(FALAISE_ENABLE_TESTING)
   # - CATCH TESTS
   foreach(_testsource ${FalaiseLibrary_TESTS_CATCH})

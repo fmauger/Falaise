@@ -140,6 +140,11 @@ BOOST_CLASS_EXPORT_IMPLEMENT(snemo::datamodel::helix_trajectory_pattern)
 DATATOOLS_SERIALIZATION_CLASS_SERIALIZE_INSTANTIATE_ALL(snemo::datamodel::polyline_trajectory_pattern)
 BOOST_CLASS_EXPORT_IMPLEMENT(snemo::datamodel::polyline_trajectory_pattern)
 
+#include <falaise/snemo/datamodels/boost_io/two_arms_trajectory_pattern.ipp>
+DATATOOLS_SERIALIZATION_CLASS_SERIALIZE_INSTANTIATE_ALL(
+    snemo::datamodel::two_arms_trajectory_pattern)
+BOOST_CLASS_EXPORT_IMPLEMENT(snemo::datamodel::two_arms_trajectory_pattern)
+
 #include <falaise/snemo/datamodels/boost_io/tracker_trajectory.ipp>
 #include <falaise/snemo/datamodels/boost_io/tracker_trajectory_solution.ipp>
 #include <falaise/snemo/datamodels/boost_io/track_fitting_utils.ipp>

@@ -35,9 +35,9 @@ namespace snemo {
 
       enum direction_type
         {
-          DIRECTION_NONE     = 0,
-          DIRECTION_BACKWARD = datatools::bit_mask::bit01,
+          DIRECTION_INVALID  = 0,
           DIRECTION_FORWARD  = datatools::bit_mask::bit00,
+          DIRECTION_BACKWARD = datatools::bit_mask::bit01,
           DIRECTION_BOTH     = DIRECTION_FORWARD | DIRECTION_BACKWARD
         };
   
