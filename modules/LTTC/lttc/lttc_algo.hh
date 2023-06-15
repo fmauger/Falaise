@@ -286,6 +286,8 @@ namespace lttc {
        CQR_BAD  = 2
       };
 
+    static std::string to_string(const cluster_quality_rank);
+
     /// \brief Information about cluster quality 
     struct cluster_quality_data
     {
@@ -509,6 +511,17 @@ namespace lttc {
     void terminate_loops();
      
     void print(std::ostream & out_, const std::string & indent_ = "") const;
+
+    struct GHits
+    {
+      const tracker_hit_collection * hits = nullptr;
+    };
+
+    static GHits & ghits()
+    {
+      static std::unique_ptr<GHits> _ghits(new GHits);
+      return *_ghits;
+    }
     
     /// \brief input data
     struct input_data
@@ -544,6 +557,7 @@ namespace lttc {
     // Configuration
     const snemo::processing::detector_description * detector_desc = nullptr;
     std::unique_ptr<tracker> sntracker;   ///< Tracker specific utilities
+    lttc::tracker_conditions trackerconds;
     config          cfg;                   ///< Configuration
 
     // Work:

@@ -34,16 +34,18 @@ namespace lttc {
     DT_LOG_DEBUG(logging, "#crossed cells = " << crossedCells.size());
     line2 line = line2::make_from_start_stop(first_, last_);
     for (const cell_id & cid : crossedCells) {
-      DT_LOG_DEBUG(logging, "  checking cell " << cid << "...");
+      // DT_LOG_DEBUG(logging, "  checking cell " << cid << "...");
       point2 cellCenter = _lttc_.get_sntracker().cell_position(cid);
       point2 nearestPointOnSegment = line.orthogonal_projection(cellCenter);
       double lengthToNearest = (nearestPointOnSegment - first_).mag();
       if (lengthToNearest > length) {
         continue;
       }
-      double expectedDrift = (nearestPointOnSegment - cellCenter).mag();
+      auto driftAxis = nearestPointOnSegment - cellCenter;
+      double thetaDrift = std::atan2(driftAxis.y(), driftAxis.x());
+      double expectedDrift = driftAxis.mag();
       if (expectedDrift > _lttc_.get_sntracker().rcell) {
-        DT_LOG_DEBUG(logging, "     -> no hit is expected in this cell");
+        DT_LOG_DEBUG(logging, "no hit is expected in cell " << cid);
         continue;
       }
       // This candidate cell should contains a hit:
@@ -86,6 +88,22 @@ namespace lttc {
         cluster_missing_hit_data cmh;
         cmh.cid = cid;
         cmh.why = MCR_NO_TRIGGER;
+	// Inspired by DocDB 1949
+	const double rc = 2.0 * CLHEP::mm; 
+	const double rcDiag = 6.0 * CLHEP::mm;
+	const double deltaRc = 0.5 * (rcDiag - rc);
+	const double meanRc = 0.5 * (rcDiag + rc);
+	double rSafe = deltaRc * std::cos(4 * thetaDrift) + _lttc_.get_sntracker().rcell - meanRc;
+	DT_LOG_DEBUG(logging, "checked cell " << cid);
+	DT_LOG_DEBUG(logging, "rSafe=" << rSafe);
+	DT_LOG_DEBUG(logging, "expectedDrift=" << expectedDrift);
+	DT_LOG_DEBUG(logging, "thetaDrift=" << thetaDrift * 380 / M_PI << "°");
+	
+	// if (expectedDrift > _lttc_.get_sntracker().rcell - 2.0 * CLHEP::mm) {
+	if (expectedDrift > rSafe) {
+	  // Special case of an exected hit at the edge of the cell
+	  cmh.why = MCR_NO_EDGE_TRIGGER;
+	}
         missing_hits_.push_back(cmh);          
       }
     } // end of cell ID loop

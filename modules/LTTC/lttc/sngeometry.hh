@@ -87,7 +87,7 @@ namespace lttc {
     void add_dead_cell(const cell_id & id_);
     void remove_dead_cell(const cell_id & id_);
     const std::set<cell_id> & get_dead_cells() const;
-    void clear_dead_cells();  
+    void clear_dead_cells();
   private:     
     std::set<cell_id> _dead_cells_; ///< List of dead cells    
   };

@@ -47,7 +47,16 @@ namespace lttc {
   {
     detector_desc = &det_desc_;
     sntracker = std::make_unique<tracker>(detector_desc->get_gg_locator());
+    sntracker->set_tracker_conditions(trackerconds);
     cfg = cfg_;
+    if (cfg.draw) {
+      lttc::tracker_drawer trackerDrawer(*sntracker);
+      std::ofstream ftrackergeom(cfg.draw_prefix + "tracker-geometry.data");
+      ftrackergeom << "#@tracker-geometry\n";
+      trackerDrawer.draw(ftrackergeom);
+      std::cout << '\n';
+      std::cout << '\n';
+    }
     return;
   }
    
@@ -69,6 +78,10 @@ namespace lttc {
   bool lttc_algo::validate_cell(const cell_id & cid_) const
   {
     static const int moduleId = 0;
+    snemo::time::time_point timestamp;
+    if (indata != nullptr) {
+      
+    }
     if (detector_desc->has_cell_status_service() and snemo::time::is_valid(indata->timestamp)) {
       geomtools::geom_id gid( detector_desc->get_gg_locator().cellGIDType(), moduleId, cid_.side(), cid_.layer(), cid_.row());
       std::uint32_t cellStatus = detector_desc->get_cell_status_service().get_cell_status(gid, indata->timestamp);
@@ -232,7 +245,7 @@ namespace lttc {
     r_step = std::numeric_limits<double>::quiet_NaN();  
     r_max  = std::numeric_limits<double>::quiet_NaN(); 
     nbins_over_threshold = 0;
-    hits_per_bin_ratio   = std::numeric_limits<double>::quiet_NaN(); 
+    hits_per_bin_ratio = std::numeric_limits<double>::quiet_NaN(); 
     t_mean = std::numeric_limits<double>::quiet_NaN(); 
     r_mean = std::numeric_limits<double>::quiet_NaN(); 
     t_err  = std::numeric_limits<double>::quiet_NaN(); 
@@ -474,21 +487,21 @@ namespace lttc {
   }
 
   void lttc_algo::clustering_data::print(std::ostream & out_,
-                                        const std::string & indent_,
-                                        const rt_map & trmap_) const
+					 const std::string & indent_,
+					 const rt_map & /*trmap_*/) const
   {
     // out_ << "|-- #ignored bins = " << unclustered.size() << '\n';
     
     out_ << indent_ << "|-- #unclustered bins = " << unclustered.size() << '\n';
-    size_t nUnclusteredBins = 0;
-    for (auto ibin : unclustered) {
-      std::string tag = "|-- ";
-      if (nUnclusteredBins + 1 == unclustered.size()) tag = "`-- ";
-      out_ << indent_ << "|   " << tag << "unclustered #" << ibin
-           << " with height=" << trmap_.bins[ibin]
-           << '\n';
-      nUnclusteredBins++;
-    }
+    // size_t nUnclusteredBins = 0;
+    // for (auto ibin : unclustered) {
+    //   std::string tag = "|-- ";
+    //   if (nUnclusteredBins + 1 == unclustered.size()) tag = "`-- ";
+    //   out_ << indent_ << "|   " << tag << "unclustered #" << ibin
+    //        << " with height=" << trmap_.bins[ibin]
+    //        << '\n';
+    //   nUnclusteredBins++;
+    // }
     
     out_ << indent_ << "|-- #clusters = " << clusters.size() << '\n';
     size_t ntotClusteredBins = 0;
@@ -503,8 +516,10 @@ namespace lttc {
       }
       ntotClusteredBins += clusters[ic].bins.size();
       out_ << indent_ << "|   " << tag << "cluster #" << ic << " : \n";
-      indent2 << tag2;
-      clusters[ic].print(out_, indent2.str());
+      if (clusters[ic].threshold_height >= 3.0) {
+	indent2 << tag2;
+	clusters[ic].print(out_, indent2.str());
+      }
       // #sbins=" << clusters[ic].sbins.size()
       // << " max_sbin=" << clusters[ic].max_sbin << " with max_height=" << clusters[ic].max_height << '\n';
     }
@@ -1039,7 +1054,7 @@ namespace lttc {
     hc_.hits.clear();
     size_t nHits = workingHC.shape()[0];
     for (int iHit = 0; iHit < (int) nHits; iHit++) {
-      DT_LOG_DEBUG(cfg.logging, "iHit=" << iHit);
+      // DT_LOG_DEBUG(cfg.logging, "iHit=" << iHit);
       if (! outdata->hit_clustering.hit_clustering_map.count(iHit)) {
         std::set<int> emptySet;
         outdata->hit_clustering.hit_clustering_map[iHit] = emptySet;
@@ -1165,7 +1180,7 @@ namespace lttc {
         out_ << "#" << i << " : " << missing_hits[i] << '\n';
       }
     }
-    out_ << indent_ << "`-- " << "Rank : " << rank << '\n';
+    out_ << indent_ << "`-- " << "Rank : " << lttc_algo::to_string(rank) << '\n';
     return;
   }
 
@@ -1492,21 +1507,40 @@ namespace lttc {
   {
     // XXX
     DT_LOG_DEBUG(cfg.logging, "Entering...");
+    DT_LOG_DEBUG(cfg.logging, "Hit cluster data ID = " << hc_.id);
+    DT_LOG_DEBUG(cfg.logging, "Quality : ");
+    hc_.quality.print(std::cerr, "[debug]  ");
     hc_.track_ordered_hits.clear();
     hc_.track_ordered_hits.reserve(hc_.hits.size());
     std::set<int> remainingHits = hc_.hits;
     DT_LOG_DEBUG(cfg.logging, "#remainingHits = " << remainingHits.size());
+    for (auto iHit : remainingHits) {
+      const tracker_hit & h = lttc_algo::ghits().hits->at(iHit); // XXX
+      cell_id cid(h.side_id, h.layer_id, h.row_id);
+      DT_LOG_DEBUG(cfg.logging, " hit #" << iHit << " : " << cid);
+    }
     if (hc_.line_data.is_valid()) {
-      DT_LOG_DEBUG(cfg.logging, "Valid line data");
+      DT_LOG_DEBUG(cfg.logging, "======> Line data case");
+      DT_LOG_DEBUG(cfg.logging, "Fitted line data : ");
+      hc_.line_data.print(std::cerr, "[debug]  ");
       int iFirstHit = hc_.end_hit_0;
       int iLastHit  = hc_.end_hit_1;
       DT_LOG_DEBUG(cfg.logging, "iFirstHit   = " << iFirstHit);
       DT_LOG_DEBUG(cfg.logging, "iLastHit    = " << iLastHit);
+      fitted_point2 firstNode = hc_.hit_associations.find(iFirstHit)->second.node;
+      point2 firstVertex(firstNode.x, firstNode.y);
+      remainingHits.erase(iFirstHit);
+      fitted_point2 lastNode = hc_.hit_associations.find(iLastHit)->second.node;
+      point2 lastVertex(lastNode.x, lastNode.y);
+      double lastFirstDist = (firstVertex - lastVertex).mag();
+      DT_LOG_DEBUG(cfg.logging, "lastFirstDist = " << lastFirstDist);
       int iCurrentHit = iFirstHit;
       DT_LOG_DEBUG(cfg.logging, "iCurrentHit = " << iCurrentHit);
       fitted_point2 currentNode = hc_.hit_associations.find(iCurrentHit)->second.node;
       point2 currentVertex(currentNode.x, currentNode.y);
+      DT_LOG_DEBUG(cfg.logging, "currentVertex[" << iCurrentHit << "] = " << currentVertex);
       while (remainingHits.size() > 1) {
+	DT_LOG_DEBUG(cfg.logging, "Loop iCurrentHit = " << iCurrentHit);
         remainingHits.erase(iCurrentHit);
         hc_.track_ordered_hits.push_back(iCurrentHit);
         // Search the closest hit along the fitted line:
@@ -1515,16 +1549,29 @@ namespace lttc {
         for (auto iHit : remainingHits) {
           const fitted_point2 & theNode = hc_.hit_associations.find(iHit)->second.node;
           point2 theVertex(theNode.x, theNode.y);
+	  DT_LOG_DEBUG(cfg.logging, "theVertex[" << iHit << "] = " << theVertex);
           double nodeDist = (theVertex - currentVertex).mag();
           if (nodeDist <= minDist) {
-            minDist = nodeDist;
+	    minDist = nodeDist;
             iNextHit = iHit;
-          }
-        }
+ 	    DT_LOG_DEBUG(cfg.logging, "new minDist = " << minDist);
+	    DT_LOG_DEBUG(cfg.logging, "new iNextHit = " << iNextHit);
+	  }
+        } // XXX
         iCurrentHit = iNextHit;
+	DT_LOG_DEBUG(cfg.logging, "New status:");
+	DT_LOG_DEBUG(cfg.logging, "  iCurrentHit = " << iCurrentHit);
+	DT_LOG_DEBUG(cfg.logging, "  #remainingHits = " << remainingHits.size());
+	for (auto iHit : remainingHits) {
+	  DT_LOG_DEBUG(cfg.logging, "    hit#" << iHit);
+	}
       }
-      DT_THROW_IF(remainingHits.count(iLastHit) == 0, std::logic_error,
-                  "End hit 1=" << iLastHit << " should be the last in the remaining set!");
+      if (remainingHits.count(iLastHit) == 0) {
+	DT_LOG_DEBUG(cfg.logging, "End hit 1=" << iLastHit << " should be the last in the remaining set!");
+      }
+      // XXXX
+      // DT_THROW_IF(remainingHits.count(iLastHit) == 0, std::logic_error,
+      //             "End hit 1=" << iLastHit << " should be the last in the remaining set!");
       hc_.track_ordered_hits.push_back(iLastHit);    
     } /* else {
       // Not implemented yet
@@ -1690,7 +1737,7 @@ namespace lttc {
         std::set<int> emptySet;
         outdata->hit_clustering.hit_clustering_map[iHit] = emptySet;
       }
-     }
+    }
     std::vector<size_t> cluster_stats;
     std::vector<uint32_t> cluster_status;
     cluster_stats.assign(nclusters, 0);
@@ -1844,6 +1891,7 @@ namespace lttc {
         }
       }
       loopCounter++;
+      if (loopCounter > 2) break;
     } while (reprocessClusters);
     clusters_search_short_arms();
     // Identify unclustered hits:
@@ -1928,6 +1976,7 @@ namespace lttc {
     hit_cluster_data & hitCluster = hc_;
     cluster_quality_data & clusterQuality = hitCluster.quality;
     size_t badFlagCounter = 0;
+    DT_LOG_DEBUG(cfg.logging, "Hit cluster #" << hc_.id);
     DT_LOG_DEBUG(cfg.logging, "Effective p-value = " << clusterQuality.get_effective_pvalue());
     DT_LOG_DEBUG(cfg.logging, "Effective # missing hits = " << clusterQuality.get_effective_number_of_missing_hits());
     DT_LOG_DEBUG(cfg.logging, "# of well fitted hits = " << (clusterQuality.hits.size() - clusterQuality.outliers.size()));
@@ -1963,8 +2012,10 @@ namespace lttc {
       
     clusterQuality.rank = CQR_GOOD;
     if (badFlagCounter == 1) {
+      DT_LOG_DEBUG(cfg.logging, "Poor quality");
       clusterQuality.rank = CQR_POOR;
     } else if (badFlagCounter >= 2 ) {
+      DT_LOG_DEBUG(cfg.logging, "Bad quality");
       clusterQuality.rank = CQR_BAD;
     }  
     DT_LOG_DEBUG(cfg.logging, "Exiting.");
@@ -2462,7 +2513,19 @@ namespace lttc {
   {
     return;
   }
-  
+
+  // static
+  std::string lttc_algo::to_string(const cluster_quality_rank rk_)
+  {
+    switch (rk_) {
+    case CQR_GOOD: return std::string("good");
+    case CQR_POOR: return std::string("poor");
+    case CQR_BAD: return std::string("bad");
+    default: break;
+    }
+    return std::string("undefined");
+  }
+
   double lttc_algo::cluster_quality_data::get_effective_pvalue() const
   {
     double pv = pvalue;
@@ -2670,6 +2733,22 @@ namespace lttc {
       }
     }
     out_ << '\n';
+    {
+      int hitCount = 0;
+      for (auto ihit : hits) {
+	out_ << indent_ << "|   ";
+	if ((hitCount+1) == (int) hits.size()) {
+          out_ << "`-- ";
+        } else {
+          out_ << "|-- ";
+        }
+	const tracker_hit & h = lttc_algo::ghits().hits->at(ihit); // XXX
+	cell_id cid(h.side_id, h.layer_id, h.row_id);
+        out_ << "Hit #" << ihit << " : " << cid << '\n';
+        hitCount++;	 
+      }
+    }
+    
     out_ << indent_ << "|-- " << "Quality : \n";
     quality.print(out_, indent_ + "|   ");
     
@@ -2898,10 +2977,11 @@ namespace lttc {
         count++;
       }
     } else {
-      out_ << 0.0/0.0 << ' ' << 0.0/0.0 << '\n';
+      out_ << 0.0/0.0 << ' ' << 0.0/0.0 << ' ' << 0.0/0.0 << '\n';
       out_ << '\n';
     }
     out_ << '\n';
+    out_ << "#@nb clusters=" << clusters.size() << '\n';
     std::set<int> drawnClusters;
     {
       size_t counter = 0;
@@ -2972,6 +3052,9 @@ namespace lttc {
       out_ << "#@kinked_track-" << ikt << '\n';
       kinked_tracks[ikt].draw(out_, ikt);
     }
+    if (kinked_tracks.size() == 0) {
+      out_ << "0 0 0\n"; 
+    }
     out_ << '\n';
     return;
   }
@@ -3014,8 +3097,10 @@ namespace lttc {
       loops.push_back(new_loop);
     }
     current_loop = &loops.back();
+    DT_LOG_DEBUG(cfg.logging," ============== Loop #" << loop_counter<< " ==============");
     
     if (cfg.mode == MODE_LINE) {
+      DT_LOG_DEBUG(cfg.logging, " ==================== Line mode ======================");
       DT_LOG_DEBUG(cfg.logging, " ==================== Step-1 =========================");
       step1_run();
       DT_LOG_DEBUG(cfg.logging, " ==================== Step-1 Done ====================");
@@ -3093,6 +3178,45 @@ namespace lttc {
     DT_LOG_DEBUG(cfg.logging, "Entering...");
     this->_clear_processing_data_();
     indata = &indata_;
+    DT_LOG_DEBUG(cfg.logging, "Number of hits = " << indata->hits.size());
+    {
+      std::ofstream fhits(cfg.draw_prefix + "hits.data");
+      for (const auto & aHit : indata->hits) {
+        lttc::tracker_hit_drawer trkHitDrawer(aHit, *sntracker);
+        trkHitDrawer.draw(fhits);
+      }
+      fhits << '\n';
+    }   
+    
+    trackerconds.clear_dead_cells();
+    {
+      for (int side = 0; side < 2; side++) {
+	for (int layer = 0; layer < 113; layer++) {
+	  for (int row = 0; row < 9; row++) {
+	    lttc::cell_id cid(side, layer, row);
+	    if (! validate_cell(cid)) {
+	      DT_LOG_DEBUG(cfg.logging, "Adding dead cell " << cid);
+	      trackerconds.add_dead_cell(cid);
+	    }
+	  }
+	}
+      }
+      DT_LOG_DEBUG(cfg.logging, "Number of dead cells : "
+		   << trackerconds.get_dead_cells().size());
+    }
+
+    if (cfg.draw) {
+      {
+	std::ofstream ftrackerdcells(cfg.draw_prefix + "tracker-dead-cells.data");
+	ftrackerdcells << "#@tracker-dead-cells\n";
+	lttc::tracker_conditions_drawer trackerCondsDrawer(trackerconds, *sntracker);
+	trackerCondsDrawer.draw(ftrackerdcells);
+	ftrackerdcells << '\n';
+	ftrackerdcells << '\n';
+      }
+    }
+
+    ghits().hits = &(indata_.hits); // XXX
     outdata = &outdata_;
     _prepare_working_data_();
 
@@ -3219,6 +3343,7 @@ namespace lttc {
       // }
       iloop++;
       if (iloop == max_nloops) {
+	DT_LOG_DEBUG(cfg.logging, "Quit loops.");
         break;
       }
     }
@@ -3239,7 +3364,8 @@ namespace lttc {
           continue;
         }
         const track_path_data & trackPathi = hci.track_path;
-        DT_LOG_DEBUG(cfg.logging, "Draw trackPathi of cluster #" << icl << " with " << trackPathi.vertexes.size() << " vertices"); 
+        DT_LOG_DEBUG(cfg.logging, "Draw trackPathi for cluster #" << icl
+		     << " with " << trackPathi.vertexes.size() << " vertices"); 
         finalTracks << "#@track-path-" << icl << '\n';
         trackPathi.draw(finalTracks, icl);
         finalTracks << '\n';
@@ -3250,6 +3376,13 @@ namespace lttc {
     
     this->_build_output_data_();
     DT_LOG_DEBUG(cfg.logging, "Exiting.");
+    std::cerr << "Hit return for " << indata->hits.size() << " hits \n";
+    // std::string rep;
+    // std::cin >> rep;
+    //   std::clog << "Hit [Enter]" << std::endl;
+    // std::string resp;
+    // std::getline(std::cin, resp);
+
     return;
   }
   

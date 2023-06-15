@@ -89,7 +89,7 @@ if(FalaiseLttcPlugin_ENABLE_TESTING)
   enable_testing()
   add_subdirectory(lttc/testing)
   # Removed now because of reco failure
-  # add_subdirectory(testing)
+  add_subdirectory(testing)
 endif()
 
 option(FalaiseLttcPlugin_ENABLE_PLOT_TESTING "Build plot unit testing system for LTTC" ON)

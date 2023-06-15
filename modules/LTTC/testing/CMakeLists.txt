@@ -3,7 +3,8 @@
 # configure_file("SimRCExample.conf.in" "SimRCModuleExample.conf" @ONLY)
 
 # Add a basic test of reading a brio file output by the standard pipeline
-
+message( STATUS "============ LTTC testing ============")
+ 
 set(_LttcTestConfFiles
   "simu.profile"
   "services.conf"
@@ -11,8 +12,14 @@ set(_LttcTestConfFiles
   )
 
 foreach(_file ${_LttcTestConfFiles})
+  message( STATUS "==== configure file '${_file}'")
   configure_file("${CMAKE_CURRENT_SOURCE_DIR}/${_file}" "${CMAKE_CURRENT_BINARY_DIR}/${_file}" COPYONLY)
 endforeach()
+
+# - Truc
+add_test(NAME testLTTC_truc
+  COMMAND echo "Truc"
+  )
 
 # - Simulate 100 events
 add_test(NAME testLTTC_simulate
@@ -20,7 +27,7 @@ add_test(NAME testLTTC_simulate
   -c ${CMAKE_CURRENT_SOURCE_DIR}/simu.conf
   -o testLTTC-sd.brio
   -m testLTTC-simulate-meta.xml
-  -N 100
+  -N 1
   WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
   )
  
@@ -37,14 +44,11 @@ set_tests_properties(testLTTC_reco_1 PROPERTIES DEPENDS testLTTC_simulate)
 #############################################################
 # 2022-06-15 FM :
 # For developers only : uncomment the following tests to activate the visualization
-# 
-# # - Apply RC then reconstruct
-# add_test(NAME testSimRC_nosimrc
-#   COMMAND flreconstruct
-#   -p ${FalaiseSimRCPlugin_SOURCE_DIR}/testing/nosimrc.conf
-#   -i testSimRC-simulate.brio
-#   -o testSimRC-simulate-norc.brio
-#   WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
-#   ) 
+add_test(NAME testLTTC_visu_1
+  COMMAND flvisualize
+  -i testLTTC-rec-rc.brio
+  WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
+  ) 
+set_tests_properties(testLTTC_reco_1 PROPERTIES DEPENDS testLTTC_simulate) 
 
 # end

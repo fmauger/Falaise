@@ -209,7 +209,7 @@ namespace snemo {
       }
 
       if (calib_data_.tracker_hits().size() == 0) {
-        DT_LOG_DEBUG(get_logging_priority(), "Calibrated data has not tracker hits!");
+        DT_LOG_DEBUG(get_logging_priority(), "Calibrated data has no tracker hits!");
       } else {
         DT_LOG_DEBUG(get_logging_priority(), "Calibrated data has " << calib_data_.tracker_hits().size() << " tracker hits!");
       }

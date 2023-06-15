@@ -12,6 +12,7 @@ namespace lttc {
     case MCR_DEAD_CELL  : return std::string("dead-cell");
     case MCR_BUSY_CELL  : return std::string("busy-cell");
     case MCR_OTHER_TRACK : return std::string("other-track");
+    case MCR_NO_EDGE_TRIGGER : return std::string("no-edge-trigger");
     default:
       break;
     }

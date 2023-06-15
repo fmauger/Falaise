@@ -17,7 +17,8 @@ namespace lttc {
      MCR_NO_TRIGGER  = 1, ///< No trigger as expected
      MCR_DEAD_CELL   = 2, ///< Dead cell
      MCR_BUSY_CELL   = 3, ///< Busy cell (dead time)
-     MCR_OTHER_TRACK = 4  ///< Cell hit by another track
+     MCR_OTHER_TRACK = 4, ///< Cell hit by another track
+     MCR_NO_EDGE_TRIGGER = 5  ///< No trigger as expected at the edge of the cell
     };
 
   std::string to_string(missing_cell_reason_type why_);
