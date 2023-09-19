@@ -102,6 +102,7 @@ list(APPEND FalaiseLibrary_HEADERS
   snemo/services/run_info_service.h
   snemo/services/tracker_cell_status_service.h
   snemo/services/calorimeter_om_status_service.h
+  snemo/services/calorimeter_om_response_service.h
 
   snemo/cuts/event_header_cut.h
   snemo/cuts/simulated_data_cut.h
@@ -115,6 +116,7 @@ list(APPEND FalaiseLibrary_HEADERS
   snemo/physics_model/decaying_activity_model.h
   snemo/physics_model/per_period_activity_model.h
   snemo/physics_model/activity_model_factory.h
+  snemo/physics_model/calorimeter_om_response_model.h
 
   snemo/rc/run_description.h
   snemo/rc/run_list.h
@@ -203,6 +205,7 @@ list(APPEND FalaiseLibrary_SOURCES
   snemo/simulation/cosmic_muon_generator.cc
   snemo/simulation/gg_step_hit_processor.cc
   snemo/simulation/calorimeter_step_hit_processor.cc
+  snemo/services/calorimeter_om_response_service.cc
 
   snemo/cuts/event_header_cut.cc
   snemo/cuts/simulated_data_cut.cc
@@ -216,6 +219,7 @@ list(APPEND FalaiseLibrary_SOURCES
   snemo/physics_model/decaying_activity_model.cc
   snemo/physics_model/per_period_activity_model.cc
   snemo/physics_model/activity_model_factory.cc
+  snemo/physics_model/calorimeter_om_response_model.cc
 
   snemo/rc/run_description.cc
   snemo/rc/run_list.cc
@@ -272,9 +276,11 @@ list(APPEND FalaiseLibrary_TESTS
   snemo/test/test_snemo_physics_model_sliced_activity_model.cxx
   snemo/test/test_snemo_physics_model_per_period_activity_model.cxx
   snemo/test/test_snemo_physics_model_activity_model_factory.cxx
+  snemo/test/test_snemo_physics_model_calorimeter_om_response_model.cxx
   snemo/test/test_snemo_services_run_info_service.cxx
   snemo/test/test_snemo_services_tracker_cell_status_service.cxx
   snemo/test/test_snemo_services_calorimeter_om_status_service.cxx
+  snemo/test/test_snemo_services_calorimeter_om_response_service.cxx
   # snemo/test/test_snemo_service_rc.cxx
 
   snemo/processing/detail/testing/test_trackerpreclustering.cxx

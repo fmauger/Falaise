@@ -74,14 +74,16 @@ double CalorimeterModel::getSigmaEnergy(const double energy) const {
 }
 
 double CalorimeterModel::quenchAlphaParticle(const double energy) const {
-  const double raw_energy = energy * CLHEP::MeV;
+  // const double raw_energy = energy * CLHEP::MeV;
+  const double raw_energy = energy / CLHEP::MeV;
 
   const double mod_energy = 1.0 / (alphaQuenching_1 * raw_energy + 1.0);
   const double quenching_factor =
       -alphaQuenching_0 *
       (std::pow(mod_energy, alphaQuenching_2) - std::pow(mod_energy, alphaQuenching_2 / 2.0));
 
-  return raw_energy / quenching_factor;
+  // return raw_energy / quenching_factor;
+  return energy / quenching_factor;
 }
 
 double CalorimeterModel::smearTime(mygsl::rng& rng, const double time,

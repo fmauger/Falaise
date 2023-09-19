@@ -72,9 +72,9 @@ class CalorimeterModel {
   double relaxationTime{6. * CLHEP::ns};         //!< Scintillator relaxation time
 };
 
-}  // end of namespace processing
+} // end of namespace processing
 
-}  // end of namespace snemo
+} // end of namespace snemo
 
 /***************************
  * OCD support : interface *
@@ -85,6 +85,6 @@ class CalorimeterModel {
 // @arg snemo::processing::calorimeter_regime the name the registered class
 DOCD_CLASS_DECLARATION(snemo::processing::CalorimeterModel)
 
-#endif  // FALAISE_SNEMO_PROCESSING_CALORIMETER_REGIME_H
+#endif // FALAISE_SNEMO_PROCESSING_CALORIMETER_REGIME_H
 
 // end of falaise/snemo/processing/calorimeter_regime.h
