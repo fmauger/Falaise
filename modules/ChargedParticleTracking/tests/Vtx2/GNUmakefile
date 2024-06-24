@@ -24,7 +24,7 @@ run0 : TTD.brio
 TTD.brio : SD.brio pipeline0.conf profile.conf reco0.conf
 	./run_reco0.sh 
 
-.PHONY : run0
+.PHONY : sim0
 sim0 : SD.brio
 
 SD.brio : simu1.conf profile.conf
