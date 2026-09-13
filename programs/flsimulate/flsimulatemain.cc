@@ -62,6 +62,7 @@
 #include "bayeux/mctools/g4/simulation_module.h"
 #include "bayeux/mygsl/random_utils.h"
 #include "bayeux/mygsl/seed_manager.h"
+#include "bayeux/mctools/simulated_data.h"
 #include "bayeux/version.h"
 
 // This Project
@@ -401,11 +402,45 @@ namespace FLSimulate {
           code = falaise::EXIT_UNAVAILABLE;
         }
 
-        status = simOutput.process(workItem);
-        if (status != dpp::base_module::PROCESS_OK) {
-          std::cerr << "flsimulate : Output module failed" << std::endl;
-          code = falaise::EXIT_UNAVAILABLE;
-        }
+	// Implementation of the -Z switch
+	bool saveEvent = true;
+	// std::cerr << "EVENT LOOP === flSimParameters.skipEventWithNoHit = " << flSimParameters.skipEventWithNoHit << '\n';
+	if (flSimParameters.skipEventWithNoHit) {
+	  // std::cerr << "SAVE ==== OPTION skip-event-without-hit !!!\n";
+
+	  const auto & sdBank = workItem.get<mctools::simulated_data>(snedm::labels::simulated_data());
+	  if (not sdBank.has_data()) {
+	     saveEvent = false;
+	  } else {
+	    auto nbHitsCalo = 0u;
+	    auto nbHitsGeiger = 0u;
+	    if (sdBank.has_step_hits("calo")) {
+	      nbHitsCalo = sdBank.get_number_of_step_hits("calo");
+	    }
+	    if (sdBank.has_step_hits("xcalo")) {
+	      nbHitsCalo = sdBank.get_number_of_step_hits("xcalo");
+	    }
+	    if (sdBank.has_step_hits("gveto")) {
+	      nbHitsCalo = sdBank.get_number_of_step_hits("gveto");
+	    }
+	    if (sdBank.has_step_hits("gg")) {
+	      nbHitsGeiger = sdBank.get_number_of_step_hits("gg");
+	    }
+	    // std::cerr << "SAVE ==== OPTION skip-event-without-hit : nbHitsCalo   = " << nbHitsCalo << "\n";
+	    // std::cerr << "SAVE ==== OPTION skip-event-without-hit : nbHitsGeiger = " << nbHitsGeiger << "\n";
+	    if (nbHitsCalo == 0u or nbHitsGeiger == 0u) {
+	      saveEvent = false;
+	    }
+	  }
+	}
+	// std::cerr << "SAVE ==== OPTION skip-event-without-hit : saveEvent=" << saveEvent << "\n";
+	if (saveEvent) {
+	  status = simOutput.process(workItem);
+	  if (status != dpp::base_module::PROCESS_OK) {
+	    std::cerr << "flsimulate : Output module failed" << std::endl;
+	    code = falaise::EXIT_UNAVAILABLE;
+	  }
+	}
 
         // Here we will process optional ASB+Digitization+terminal output modules
 

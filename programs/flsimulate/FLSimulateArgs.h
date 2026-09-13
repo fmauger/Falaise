@@ -41,8 +41,8 @@ namespace FLSimulate {
     // Plugin dedicated service:
     datatools::multi_properties userLibConfig; //!< Main configuration for plugins loader
 
-    bool doSimulation;                //!< Simulation flag
-    bool doDigitization;              //!< Digitization flag
+    bool doSimulation = true;                //!< Simulation flag
+    bool doDigitization = false;              //!< Digitization flag
     /// 2022-10-25, FM : Obsolete ?
     std::string experimentalSetupUrn; //!< The URN of the experimental setup of type "expsetup" (possibly extracted from the simulation setup)
 
@@ -57,7 +57,7 @@ namespace FLSimulate {
     // Variants support:
     std::string variantConfigUrn;  //!< Variants configuration URN
     std::string variantProfileUrn; //!< Variants profile URN
-    bool saveVariantSettings;      //!< Flag to save effective variant settings in metadata
+    bool saveVariantSettings = false;      //!< Flag to save effective variant settings in metadata
     /// Variants configuration parameters
     datatools::configuration::variant_service::config variantServiceConfig; 
 
@@ -68,10 +68,11 @@ namespace FLSimulate {
     // Simulation control:
     std::string outputMetadataFile; //!< Output metadata file
     bool embeddedMetadata;          //!< Flag to embed metadata in the output data file
-    bool saveRngSeeding;            //!< Flag to save PRNG seeds in metadata
+    bool saveRngSeeding = true;     //!< Flag to save PRNG seeds in metadata
     std::string rngSeeding;         //!< PRNG seed initialization
     std::string outputFile;         //!< Output data file for the output module
-
+		bool skipEventWithNoHit = false; //!< Flag to skip events with no hit
+		
     //! Construct and return the default configuration object
     // Equally, could be supplied in a .application file, though note
     // how some parameters are derived (i.e. there's a postprocessing step)

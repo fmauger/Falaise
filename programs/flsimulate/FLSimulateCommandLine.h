@@ -38,9 +38,11 @@ namespace FLSimulate {
     std::string outputMetadataFile;        //!< Path for saving metadata
     bool embeddedMetadata;                 //!< Flag to embed metadata in the output data file
     std::string outputFile;                //!< Path for the output module
+		bool skipEventWithNoHit;               //!< Flag to skip events with no hit
+
     unsigned int numberOfEvents;           //!< Number of events to be generated
     int runNumber;                         //!< Run number
-    unsigned int firstEventNumber;                  //!< Number of the first generated event
+    unsigned int firstEventNumber;         //!< Number of the first generated event
     static FLSimulateCommandLine makeDefault();
   };
 

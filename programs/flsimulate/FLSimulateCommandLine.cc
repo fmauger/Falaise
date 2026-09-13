@@ -29,6 +29,7 @@ namespace FLSimulate {
     flClarg.outputMetadataFile = "";
     flClarg.embeddedMetadata = true;
     flClarg.outputFile = "";
+    flClarg.skipEventWithNoHit = false;
     flClarg.userProfile = "normal";
     flClarg.numberOfEvents = 1u;
     flClarg.runNumber = datatools::event_id::ANY_RUN_NUMBER;
@@ -147,7 +148,6 @@ namespace FLSimulate {
 
       ("user-profile,u", bpo::value<std::string>(&clArgs_.userProfile)->value_name("name")->default_value("normal"),
        R"(set the user profile ("expert", "normal", "production"))")
-
       ("mount-directory,d", bpo::value<std::vector<std::string>>(&clArgs_.mountPoints)->value_name("rule"),
        "register directories' mount points\n"
        "Example: \n"
@@ -169,6 +169,9 @@ namespace FLSimulate {
       ("embedded-metadata,E", bpo::value<bool>(&clArgs_.embeddedMetadata)->value_name("flag")->default_value(true),
        "flag to (de)activate recording of metadata in the "
        "simulation results output file")
+
+      ("skip-event-without-hit,Z", bpo::value<bool>(&clArgs_.skipEventWithNoHit)->value_name("flag")->default_value(false)->zero_tokens(),
+       "flag to deactivate recording of events with no hit in the simulation results output file")
 
       ("number-events,N",
        bpo::value<uint32_t>(&clArgs_.numberOfEvents)
@@ -240,7 +243,12 @@ namespace FLSimulate {
         throw FLDialogOptionsError();
       }
     }
-
+    
+    clArgs_.skipEventWithNoHit = false;
+    if (vMap.count("skip-event-without-hit") != 0u) {
+      clArgs_.skipEventWithNoHit = vMap["skip-event-without-hit"].as<bool>();
+    }
+ 
     if (falaise::validUserLevels().count(clArgs_.userProfile) == 0u) {
       DT_THROW(FLDialogOptionsError, "Invalid user profile '" << clArgs_.userProfile << "'");
     }

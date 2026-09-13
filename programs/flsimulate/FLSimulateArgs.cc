@@ -89,7 +89,8 @@ namespace FLSimulate {
     params.outputMetadataFile = "";
     params.embeddedMetadata = true;
     params.outputFile = "";
-
+    params.skipEventWithNoHit = false;
+    
     // Plugins management:
     params.userLibConfig.reset();
     params.userLibConfig.set_key_label("name");
@@ -119,11 +120,12 @@ namespace FLSimulate {
     flSimParameters_.outputMetadataFile = args.outputMetadataFile;
     flSimParameters_.embeddedMetadata = args.embeddedMetadata;
     flSimParameters_.outputFile = args.outputFile;
+    flSimParameters_.skipEventWithNoHit = args.skipEventWithNoHit;
     flSimParameters_.mountPoints = args.mountPoints;
     flSimParameters_.numberOfEvents = args.numberOfEvents;
     flSimParameters_.runNumber = args.runNumber;
     flSimParameters_.firstEventNumber = args.firstEventNumber;
- 
+  
     if (static_cast<unsigned int>(!flSimParameters_.mountPoints.empty()) != 0u) {
       // Apply mount points as soon as possible, because manually set file path below
       // may use this mechanism to locate files:
@@ -740,6 +742,7 @@ namespace FLSimulate {
     out_ << tag << "servicesSubsystemConfig    = " << servicesSubsystemConfig << std::endl;
     out_ << tag << "outputMetadataFile         = " << outputMetadataFile << std::endl;
     out_ << tag << "embeddedMetadata           = " << std::boolalpha << embeddedMetadata << std::endl;
+    out_ << tag << "skipEventWithNoHit         = " << skipEventWithNoHit << std::endl;
     out_ << last_tag << "outputFile                 = " << outputFile << std::endl;
     return;
   }

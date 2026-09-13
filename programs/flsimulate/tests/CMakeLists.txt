@@ -301,4 +301,15 @@ set_tests_properties(flsimulate-feature-bi207SD
 set_falaise_test_environment(flsimulate-feature-bi207SD)
 
 
+# 2026-10-12 FM: add-on
+# - Test of feature flsimskip0hits
+add_test(NAME flsimulate-feature-flsimskip0hits
+  COMMAND bash ${CMAKE_CURRENT_SOURCE_DIR}/feature-flsimskip0hits/run.sh
+  --work-dir "${CMAKE_CURRENT_BINARY_DIR}"
+  --cfg-dir "${CMAKE_CURRENT_SOURCE_DIR}/feature-flsimskip0hits"
+  )
+set_tests_properties(flsimulate-feature-flsimskip0hits
+   PROPERTIES ENVIRONMENT "PATH=${PROJECT_BUILD_BINDIR}:$ENV{PATH}")
+set_falaise_test_environment(flsimulate-feature-flsimskip0hits)
+
 # - end
